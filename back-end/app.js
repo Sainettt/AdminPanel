@@ -1,6 +1,6 @@
 import express from 'express'
-import userRouter from './routes/userRoutes.mjs'
-import adminRouter from './routes/adminRoutes.mjs'
+import userRouter from './routes/userRoutes.js'
+import adminRouter from './routes/adminRoutes.js'
 
 const app = express()
 

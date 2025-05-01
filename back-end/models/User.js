@@ -1,4 +1,5 @@
 import pool from '../db.js'
+
 class User {
   constructor(id, userName, email, password) {
     this.id = id
@@ -6,8 +7,8 @@ class User {
     this.email = email
     this.password = password
   }
-  static async create({ userName, email, password }) {
 
+  static async create({ userName, email, password }) {
     const result = await pool.query(
       'INSERT INTO users (user_name, email, password) VALUES ($1, $2, $3) RETURNING *',
       [userName, email, password]
@@ -22,8 +23,8 @@ class User {
 
     return new User(userId, user_name, userEmail, userPassword)
   }
-  static async getById(id) {
 
+  static async getById(id) {
     const result = await pool.query('SELECT * FROM users WHERE id = $1', [id])
 
     if (result.rows.length === 0) {
@@ -33,16 +34,16 @@ class User {
     const { id: userId, user_name, email, password } = result.rows[0]
     return new User(userId, user_name, email, password)
   }
-  static async getAll() {
 
+  static async getAll() {
     const result = await pool.query('SELECT id, user_name, email FROM users')
 
     return result.rows.map(
       (user) => new User(user.id, user.user_name, user.email, null)
     )
   }
-  static async edit(id, { userName, email, password }) {
 
+  static async edit(id, { userName, email, password }) {
     const result = await pool.query(
       'UPDATE users SET user_name = $1, email = $2, password = $3 WHERE id = $4 RETURNING *',
       [userName, email, password, id]
@@ -61,9 +62,12 @@ class User {
 
     return new User(userId, user_name, userEmail, userPassword)
   }
-  static async delete(id) {
 
-    const result = await pool.query('DELETE FROM users WHERE id = $1 RETURNING *', [id])
+  static async delete(id) {
+    const result = await pool.query(
+      'DELETE FROM users WHERE id = $1 RETURNING *',
+      [id]
+    )
 
     if (result.rows.length === 0) {
       throw new Error('User not found')
@@ -72,19 +76,19 @@ class User {
     const { id: userId, user_name, email, password } = result.rows[0]
     return new User(userId, user_name, email, password)
   }
-  static async isEmailExists(email) {
 
+  static async isEmailExists(email) {
     const result = await pool.query('SELECT 1 FROM users WHERE email = $1', [
       email,
     ])
-
     return result.rows.length > 0
   }
-  static async getPasswordById(id) {
 
-    const result = await pool.query('SELECT password FROM users WHERE id = $1', [
-      id,
-    ])
+  static async getPasswordById(id) {
+    const result = await pool.query(
+      'SELECT password FROM users WHERE id = $1',
+      [id]
+    )
 
     if (result.rows.length === 0) {
       throw new Error('User not found')
