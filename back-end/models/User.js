@@ -14,13 +14,13 @@ class User {
     )
 
     const {
-      id,
+      id: userId,
       user_name,
       email: userEmail,
       password: userPassword,
     } = result.rows[0]
 
-    return new User(id, user_name, userEmail, userPassword)
+    return new User(userId, user_name, userEmail, userPassword)
   }
   static async getById(id) {
 
@@ -38,7 +38,7 @@ class User {
     const result = await pool.query('SELECT id, user_name, email FROM users')
 
     return result.rows.map(
-      (user) => new User(user.id, user.user_name, user.email)
+      (user) => new User(user.id, user.user_name, user.email, null)
     )
   }
   static async edit(id, { userName, email, password }) {
@@ -77,8 +77,20 @@ class User {
     const result = await pool.query('SELECT 1 FROM users WHERE email = $1', [
       email,
     ])
-    
+
     return result.rows.length > 0
+  }
+  static async getPasswordById(id) {
+
+    const result = await pool.query('SELECT password FROM users WHERE id = $1', [
+      id,
+    ])
+
+    if (result.rows.length === 0) {
+      throw new Error('User not found')
+    }
+
+    return result.rows[0].password
   }
 }
 export default User
