@@ -77,13 +77,6 @@ class User {
     return new User(userId, user_name, email, password)
   }
 
-  static async isEmailExists(email) {
-    const result = await pool.query('SELECT 1 FROM users WHERE email = $1', [
-      email,
-    ])
-    return result.rows.length > 0
-  }
-
   static async getPasswordById(id) {
     const result = await pool.query(
       'SELECT password FROM users WHERE id = $1',

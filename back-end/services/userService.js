@@ -1,15 +1,12 @@
 import User from '../models/User.js'
+import { isEmailExist } from '../utils/isEmailExist.js';
+import { validateData } from '../utils/validateData.js';
 
-const validateUserData = ({ userName, email, password }) => {
-  if (!userName || !email || !password) {
-    throw new Error('All fields are required')
-  }
-}
 
 export const createUser = async (data) => {
-  validateUserData(data)
+  validateData(data)
 
-  if (await User.isEmailExists(data.email)) {
+  if (await isEmailExist(data.email)) {
     throw new Error('Email already exists')
   }
 
