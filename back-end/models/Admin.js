@@ -32,8 +32,8 @@ class Admin {
         if (result.rows.length === 0) {
             throw new Error('Admin not found')
           }
-        const { id: adminId, user_name, email: adminEmail, password: adminPassword } = result.rows[0]
-        return new Admin(adminId, user_name, adminEmail, adminPassword)
+        const { id: adminId, user_name: userName, email: adminEmail, password: adminPassword } = result.rows[0]
+        return new Admin(adminId, userName, adminEmail, adminPassword)
     }
 }
 export default Admin

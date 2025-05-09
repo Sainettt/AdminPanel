@@ -2,11 +2,11 @@ import * as adminService from '../services/adminService.js'
 import { HttpStatus } from '../constants/STATUS.js'
 export const loginAdmin = async (req, res) => {
     try {
-        const {email, password} = req.body
-        const admin = await adminService.loginAdmin({email, password})
+        const {userName, email, password} = req.body
+        const admin = await adminService.loginAdmin({userName, email, password})
         res.status(HttpStatus.OK).json(admin)
     } catch (error){
-        if (error.message === 'Invalid password') {
+        if (error.message === 'Login failed. Please try again') {
             res.status(HttpStatus.BAD_REQUEST).json({ message: error.message })
         } else if (error.message === 'Admin not found') {
             res.status(HttpStatus.NOT_FOUND).json({ message: error.message })

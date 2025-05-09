@@ -1,4 +1,5 @@
 import User from '../models/User.js'
+import WorkLog from '../models/WorkLog.js';
 import { isEmailExist } from '../utils/isEmailExist.js';
 import { validateData } from '../utils/validateData.js';
 
@@ -12,8 +13,15 @@ export const createUser = async (data) => {
 
   return await User.create(data)
 }
+export const createUserWorkLogById = async (userId, data) => {
+  const { date, startTime, endTime} = data
+  if (!date || !startTime || !endTime) {
+    throw new Error('All fields are required')
+  }
+  return await WorkLog.create(userId, data)
+}
 
-export const getUserById = (id) => User.getById(id)
+export const getUserWorkLogsById = (id) => WorkLog.getByUserId(id)
 
 export const getAllUsers = () => User.getAll()
 

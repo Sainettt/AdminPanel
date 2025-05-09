@@ -13,11 +13,11 @@ export const registerAdmin = async (data) => {
     return await Admin.create(data);
 }
 export const loginAdmin = async (data) => {
-    const {email, password} = data
+    const {userName, email, password} = data
     const admin = await Admin.getByEmail(email);
     //???
-    if (admin.password !== password) {
-        throw new Error('Invalid password');
+    if (admin.password !== password || admin.userName !== userName) {
+        throw new Error('Login failed. Please try again');
     }
     //не забыть перед отправкой захегировать пароль
     return admin;
