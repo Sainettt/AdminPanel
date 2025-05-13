@@ -4,7 +4,7 @@ import { styles } from '../styles/authStyles'
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <View style={styles.loginRegisterContainer}>
+      <View style={styles.authContainer}>
         <Text style={styles.textWelcome}>Welcome to Staff Hours</Text>
 
         <View style={styles.buttonLoginBorder}>

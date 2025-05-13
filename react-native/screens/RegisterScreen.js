@@ -1,16 +1,36 @@
-import React from 'react'
-import { Button, View, Text } from 'react-native'
-import { styles } from '../styles/mainStyles'
+import React, {useState} from 'react'
+import { Keyboard, View, TouchableWithoutFeedback, KeyboardAvoidingView, Platform} from 'react-native'
+import AuthField from '../components/AuthFields'
+import { styles } from '../styles/authStyles'
+import AuthSubmitButton from '../components/AuthSubmitButton'
 
-const RegisterScreen = () => {
+const RegisterScreen = ({navigation}) => {
+  const [userName, setUserName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setconfirmPassword] = useState('')
+  
   return (
-    <View>
-      <Text>RegisterScreen</Text>
-      {/*
-            1.окно для ввода userName email password confirm password и кнопка регистрации + кнопка для возврата на HomeScreen
-            2.при нажатии РЕГИСТРАЦИЯ нас переносит на UserListScreen
-         */}
-    </View>
+  <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <View style={{ ...styles.authContainer, height: 470, marginTop: 120 }}>
+          <View>
+            <View style={{ marginTop: 40 }}>
+              <AuthField label="UserName" value={userName} onChangeText={setUserName}/>
+            </View>            
+            <AuthField label="Email" value={email} onChangeText={setEmail} />
+            <AuthField label="Password" value={password} onChangeText={setPassword} secureTextEntry={true}/>
+            <AuthField label="Confirm Password" value={confirmPassword} onChangeText={setconfirmPassword} secureTextEntry={true}/>
+          </View>
+          <AuthSubmitButton />
+        </View>
+      </View>
+    </KeyboardAvoidingView>
+  </TouchableWithoutFeedback>
   )
 }
 export default RegisterScreen

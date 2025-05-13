@@ -7,10 +7,10 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
   },
-  loginRegisterContainer: {
+  authContainer: {
     width: '100%',
     height: 370,
-    justifyContent: 'center',
+    justifyContent: 'start',
     alignItems: 'center',
     marginTop: 140,
     backgroundColor: '#E4E4E4',
@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'Poppins-Bold',
     fontSize: 25,
     color: '#777777',
+    marginTop: 50,
     marginBottom: 45,
   },
   buttonLoginBorder: {
@@ -90,4 +91,13 @@ export const styles = StyleSheet.create({
   fontFamily: 'Poppins-Regular',
   color: '#000000',     // Цвет текста
 },
+  authSubmitButton: {
+    width: 170,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 40,
+    borderRadius: 15,
+    backgroundColor: '#0A8DDE',
+  }
 })

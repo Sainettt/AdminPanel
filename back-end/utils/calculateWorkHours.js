@@ -1,21 +1,26 @@
+export function calculateWorkHours(startTime, endTime) {
+  // Парсим часы, минуты, секунды из строки
+  const [startH, startM, startS] = startTime.split(':').map(Number);
+  const [endH, endM, endS] = endTime.split(':').map(Number);
 
-export function calculateWorkHours (startTime, endTime) {
-    // Парсим часы, минуты, секунды из строки
-    const [startH, startM, startS] = startTime.split(':').map(Number);
-    const [endH, endM, endS] = endTime.split(':').map(Number);
-  
-    // Переводим в минуты с учётом секунд
-    const startTotalMinutes = startH * 60 + startM + startS / 60;
-    const endTotalMinutes = endH * 60 + endM + endS / 60;
-  
-    // Разница
-    let diffMinutes = endTotalMinutes - startTotalMinutes;
-  
-    // Если конец меньше начала (смена через полночь)
-    if (diffMinutes < 0) {
-      diffMinutes += 24 * 60;
-    }
-  
-    return Math.round(diffMinutes); // Округляем до целого числа
+  // Переводим всё в секунды
+  const startTotalSeconds = startH * 3600 + startM * 60 + startS;
+  const endTotalSeconds = endH * 3600 + endM * 60 + endS;
+
+  // Разница
+  let diffSeconds = endTotalSeconds - startTotalSeconds;
+
+  // Если конец меньше начала (смена через полночь)
+  if (diffSeconds < 0) {
+    diffSeconds += 24 * 3600;
   }
+
+  // Переводим в часы с дробной частью
+  const diffHours = diffSeconds / 3600;
+
+  // Округляем: если 30 минут и больше — в большую сторону
+  return Math.round(diffHours);
+}
+
+
   
