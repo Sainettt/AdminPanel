@@ -8,13 +8,13 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.textWelcome}>Welcome to Staff Hours</Text>
 
         <View style={styles.buttonLoginBorder}>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <TouchableOpacity style={styles.authSubmitButtonClickableArea} onPress={() => navigation.navigate('Login')}>
             <Text style={styles.btnText}>Login</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.buttonRegisterBorder}>
-          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+          <TouchableOpacity style={styles.authSubmitButtonClickableArea} onPress={() => navigation.navigate('Register')}>
             <Text style={styles.btnText}>Register</Text>
           </TouchableOpacity>
         </View>
