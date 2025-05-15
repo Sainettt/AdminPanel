@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 140,
     backgroundColor: '#E4E4E4',
-    shadowColor: '#000', // небольшая тень для красоты (опционально)
+    shadowColor: '#000', 
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
   },
@@ -55,7 +55,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#E4E4E4',
     marginTop: 120,
-    shadowColor: '#000', // небольшая тень для красоты (опционально)
+    shadowColor: '#000', 
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
   },
@@ -85,11 +85,11 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   inputAuthField: {
-  flex: 1,              // Занимает всю высоту родителя
-  width: '100%',        // На всю ширину
-  fontSize: 16,         // Размер текста
+  flex: 1,             
+  width: '100%',        
+  fontSize: 16,        
   fontFamily: 'Poppins-Regular',
-  color: '#000000',     // Цвет текста
+  color: '#000000',    
 },
   authSubmitButton: {
     width: 170,
@@ -99,5 +99,11 @@ export const styles = StyleSheet.create({
     marginTop: 40,
     borderRadius: 15,
     backgroundColor: '#0A8DDE',
+  },
+  authSubmitButtonClickableArea:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%', 
   }
 })
