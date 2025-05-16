@@ -19,8 +19,8 @@ export const loginAdmin = async (req, res) => {
 export const registerAdmin = async (req, res) => {
     try {
         const { userName, email, password } = req.body
-        const newAdmin = await adminService.registerAdmin({ userName, email, password })
-        res.status(HttpStatus.OK).json(newAdmin)
+        const {token, newAdmin} = await adminService.registerAdmin({ userName, email, password })
+        res.status(HttpStatus.OK).json({token, newAdmin})
     } catch (error){
         if (error.message === 'Email already exists') {
             res.status(HttpStatus.BAD_REQUEST).json({ message: error.message })
@@ -30,4 +30,3 @@ export const registerAdmin = async (req, res) => {
         }
     }
 }
-
