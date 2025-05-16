@@ -4,12 +4,14 @@ import { styles } from '../styles/authStyles'
 import AuthField from '../components/AuthFields'
 import AuthSubmitButton from '../components/AuthSubmitButton'
 import {loginAdmin} from '../src/api/adminApi'
+import { saveToken } from '../utils/tokenStorage'
+import { AuthContext } from '../context/AuthContext'
 
 const LoginScreen = ({navigation}) => {
   const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
+  const {logout} = useContext(AuthContext)
   const handleLogin = async () => {
 
     if (!userName || !email || !password) {
@@ -19,11 +21,16 @@ const LoginScreen = ({navigation}) => {
 
     try {
 
-      await loginAdmin(userName, email, password)
+      const {token} = await loginAdmin(userName, email, password)
+      await saveToken(token)
       navigation.navigate('UserList')
 
     } catch (error){
-      if (error.message === 'Login failed. Please try again') {
+      if (error.message === 'Unauthorized. Please check your credentials') {
+        logout()
+        alert('Unauthorized. Please check your credentials')
+      }
+      else if (error.message === 'Login failed. Please try again') {
         alert('Login failed. Please try again')
       } else if (error.message === 'Admin not found') {
         alert('Admin not found')

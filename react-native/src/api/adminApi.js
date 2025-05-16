@@ -13,7 +13,9 @@ export const loginAdmin = async (userName, email, password) => {
       throw new Error(message)
     } else if (message === 'Admin not found') {
       throw new Error(message)
-    } else {
+    } else if (error.message === '401') {
+      throw new Error('Unauthorized. Please check your credentials')
+    } else{
       console.error('Error logging in admin:', error)
       throw new Error('Login failed. Please try again')
     }

@@ -1,14 +1,7 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {useFonts} from 'expo-font';
-import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
-import HomeScreen from './screens/HomeScreen';
-import UserListScreen from './screens/UserListScreen';
-import AddUserScreen from './screens/AddUserScreen';
-import EditUserSensitiveInfoScreen from './screens/EditUserSensitiveInfoScreen';
-import UserWorkLogsScreen from './screens/UserWorkLogsScreen';
+import {AuthProvider} from './context/AuthContext';
+import { RootNavigator } from './navigators/RootNavigator';
 
 export default function App() {
 
@@ -21,18 +14,10 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-  const Stack = createNativeStackNavigator();
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Home" component={HomeScreen}/>
-        <Stack.Screen name="UserList" component={UserListScreen} />
-        <Stack.Screen name="AddUser" component={AddUserScreen} />
-        <Stack.Screen name="EditSensitiveInfo" component={EditUserSensitiveInfoScreen}/>
-        <Stack.Screen name ="UserWorkLogs" component={UserWorkLogsScreen}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AuthProvider>
+      <RootNavigator />
+    </AuthProvider>
   );
 }

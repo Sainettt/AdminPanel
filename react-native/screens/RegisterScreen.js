@@ -10,6 +10,10 @@ const RegisterScreen = ({navigation}) => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setconfirmPassword] = useState('')
   
+  const handleRegister = () => {
+    
+  }
+
   return (
   <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 
