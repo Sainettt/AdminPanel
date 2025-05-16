@@ -11,7 +11,17 @@ export const registerAdmin = async (data) => {
         throw new Error('Email already exists');
     }
 
-    return await Admin.create(data);
+    const newAdmin = await Admin.create(data);
+    const token = jwt.sign({
+        id: newAdmin.id,
+        email: newAdmin.email,
+        userName: newAdmin.userName,
+    },
+     process.env.JWT_SECRET_KEY,
+     {expiresIn: '1h'}
+    )
+
+    return {token, newAdmin: {id: newAdmin.id, userName: newAdmin.userName, email: newAdmin.email}};
 }
 export const loginAdmin = async (data) => {
     const {userName, email, password} = data
