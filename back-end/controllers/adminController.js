@@ -3,8 +3,8 @@ import { HttpStatus } from '../constants/STATUS.js'
 export const loginAdmin = async (req, res) => {
     try {
         const {userName, email, password} = req.body
-        const admin = await adminService.loginAdmin({userName, email, password})
-        res.status(HttpStatus.OK).json(admin)
+        const {token, admin} = await adminService.loginAdmin({userName, email, password})
+        res.status(HttpStatus.OK).json({token, admin})
     } catch (error){
         if (error.message === 'Login failed. Please try again') {
             res.status(HttpStatus.BAD_REQUEST).json({ message: error.message })
