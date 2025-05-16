@@ -3,15 +3,48 @@ import { Keyboard, View, TouchableWithoutFeedback, KeyboardAvoidingView, Platfor
 import AuthField from '../components/AuthFields'
 import { styles } from '../styles/authStyles'
 import AuthSubmitButton from '../components/AuthSubmitButton'
+import { registerAdmin } from '../src/api/adminApi'
+import { saveToken } from '../utils/tokenStorage'
+import { AuthContext } from '../context/AuthContext'
+import { isValidEmail } from '../utils/validateEmail'
 
 const RegisterScreen = ({navigation}) => {
   const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setconfirmPassword] = useState('')
+  const {login} = useContext(AuthContext)
   
-  const handleRegister = () => {
+  const handleRegister = async () => {
+    if (!userName || !email || !password || !confirmPassword) {
+      alert('Please fill in all fields')
+      return
+    }
+
+    if (password !== confirmPassword) {
+      alert('Passwords do not match')
+      return
+    }
+
+    if (!isValidEmail(email)) {
+      alert('Please enter a valid email address');
+      return; 
+    }
     
+    try {
+
+      const {token} = await registerAdmin(userName, email, password)
+      await saveToken(token)
+      login()
+      navigation.navigate('UserList')
+
+    } catch (error) {
+      if (error.message === 'Email already exists') {
+        alert('Email already exists')
+      } else {
+        alert('An unexpected error occurred. Please try again later.')
+      }
+    }
   }
 
   return (
@@ -30,7 +63,7 @@ const RegisterScreen = ({navigation}) => {
             <AuthField label="Password" value={password} onChangeText={setPassword} secureTextEntry={true}/>
             <AuthField label="Confirm Password" value={confirmPassword} onChangeText={setconfirmPassword} secureTextEntry={true}/>
           </View>
-          <AuthSubmitButton />
+          <AuthSubmitButton onPress={handleRegister}/>
         </View>
       </View>
     </KeyboardAvoidingView>
