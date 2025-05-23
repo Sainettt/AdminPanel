@@ -3,7 +3,7 @@ import { Button, FlatList, View, Text } from 'react-native'
 import { getAllUsers } from '../utils/api'
 import User from '../models/User'
 import renderItemForList from '../utils/renderItemForList'
-
+import userApi from '../src/api/userApi'
 const UserListScreen = ({ navigation }) => {
   const [users, setUsers] = useState([])
 
@@ -23,7 +23,9 @@ const UserListScreen = ({ navigation }) => {
     fetchUsers()
   }, [])
 
-  const handleShow = (user) => {}
+  const handleShow = (user) => {
+
+  }
   const handleEdit = (user) => {}
   const handleDelete = (user) => {}
   
