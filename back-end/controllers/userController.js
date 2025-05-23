@@ -39,7 +39,10 @@ export const getUserWorkLogsById = async (req, res) => {
   try {
     const user = await userService.getUserWorkLogsById(req.params.id)
     res.status(OK).json(user)
-  } catch (error) {console.error('Error fetching user:', error)}
+  } catch (error) {
+    console.error('Error getting work logs:', error)
+    res.status(INTERNAL_SERVER_ERROR).json({message: 'Error getting work logs'})
+  }
 }
 export const getAllUsers = async (req, res) => {
   try {
@@ -48,6 +51,15 @@ export const getAllUsers = async (req, res) => {
   } catch (error) {
     console.error('Error fetching users:', error)
     res.status(INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' })
+  }
+}
+export const getUser = async (req, res) => {
+  try{
+    const user = await userService.getUser(req.params.id)
+    res.status(OK).json(user)
+  } catch (error) {
+    console.log('Error getting user:', error)
+    res.status(INTERNAL_SERVER_ERROR).json({message : 'User not found'})
   }
 }
 export const editUser = async (req, res) => {

@@ -4,13 +4,14 @@ import { authenticateToken } from '../utils/authenticateToken.js'
 
 const userRouter = express.Router()
 
-userRouter.use(authenticateToken)
+// userRouter.use(authenticateToken)
 userRouter.route('/')
 
 .get(userController.getAllUsers)
 .post(userController.createUser)
 
 userRouter.route('/:id')
+.get(userController.getUser)
 .put(userController.editUser)
 .delete(userController.deleteUser)
 
