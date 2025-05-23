@@ -11,7 +11,7 @@ const LoginScreen = ({navigation}) => {
   const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const {logout} = useContext(AuthContext)
+  const {logout, login} = useContext(AuthContext)
   const handleLogin = async () => {
 
     if (!userName || !email || !password) {
@@ -23,6 +23,7 @@ const LoginScreen = ({navigation}) => {
 
       const {token} = await loginAdmin(userName, email, password)
       await saveToken(token)
+      login()
       navigation.navigate('UserList')
 
     } catch (error){

@@ -1,5 +1,11 @@
 import axios from 'axios';
 import { getToken, TOKEN_KEY } from '../../utils/tokenStorage';
+
+let logout = null
+const setLogout = (cb) => {
+  logout = cb
+}
+
 const api = axios.create({
   baseURL: 'http://localhost:3000/api',
   timeout: 5000,
@@ -23,11 +29,10 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      console.warn('Unauthorized. Token may be invalid or expired.');
-      throw new Error('401')
+      logout?.()
     }
     return Promise.reject(error);
   }
 );
 
-export default api;
+export default {...api, setLogout};
