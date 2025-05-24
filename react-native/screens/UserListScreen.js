@@ -23,11 +23,15 @@ const UserListScreen = ({ navigation }) => {
     fetchUsers()
   }, [])
 
-  const handleShow = (user) => {
-
-  }
-  const handleEdit = (user) => {}
-  const handleDelete = (user) => {}
+  const handleShow = (user) => { navigation.navigate('UserWorkLogs', user.id) }
+  const handleEdit = (user) => { navigation.navigate('EditSensitiveInfo', user.id) }
+  const handleDelete = async (user) => { 
+    try {
+      await userApi.deleteUser(user.id)
+    } catch (error){
+      if (error.message === 'User not found' || 'Failed deleting user') return
+    }
+   }
   
   return (
     <View>

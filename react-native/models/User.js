@@ -6,11 +6,4 @@ export default class User {
     this.role = role
     this.password = password
   }
-  getSummary() {
-    return {
-      id: this.id,
-      userName: this.userName,
-      role: this.role,
-    }
-  }
 }
