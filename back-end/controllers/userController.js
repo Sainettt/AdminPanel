@@ -54,7 +54,7 @@ export const getAllUsers = async (req, res) => {
   }
 }
 export const getUser = async (req, res) => {
-  try{
+  try {
     const user = await userService.getUser(req.params.id)
     res.status(OK).json(user)
   } catch (error) {

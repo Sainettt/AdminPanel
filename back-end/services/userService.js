@@ -43,7 +43,7 @@ export const getAllUsers = async () => {
     role: user.role
   }))}
 }
-export const getUser = async () => User.getUser
+export const getUser = (id) => User.getUser(id)
 
 
 export const editUser = async (id, data) => {
