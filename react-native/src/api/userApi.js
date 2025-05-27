@@ -31,7 +31,7 @@ export const getUserSensitiveInfo = async (userId) => {
         return response.data
     } catch(error) {
         const message = error.response?.data?.message
-        if (message === 'User not found'){ throw new Error('Failed getting user info')}
+        if (message === 'User not found') { throw new Error('Failed getting user info')}
         else throw new Error('User not found')
     }
 }

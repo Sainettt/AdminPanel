@@ -1,12 +1,25 @@
-import React from 'react'
-import {Button, View} from 'react-native'
-const EditUserSensitiveInfoScreen = () => {
+import React, {useState, useEffect} from 'react'
+import {Button, View, Text} from 'react-native'
+import { getUserSensitiveInfo } from '../src/api/userApi'
+const EditUserSensitiveInfoScreen = ({route}) => {
+    const [user, setUser] = useState([])
+    const { id } = route.params
+    useEffect(() => {
+        const fetchUser = async () => {
+            try{
+                const response = await getUserSensitiveInfo(id)
+                setUser(response)
+            } catch { throw new Error('Failed to get user')}
+        }
+        fetchUser()
+    }
+    ,[])
     return (
         <View>
-            {/* 
-                1. отображение информации о юзере для ее изменения (userName, email, password) Edit Text
-                2. кнопка возврата (UserButton (UserListScreen)) 
-            */}
+            <Text>{user.userName}</Text>
+            <Text>{user.email}</Text>
+            <Text>{user.role}</Text>
+            <Text>{user.password}</Text>
         </View>
     )
 }

@@ -7,6 +7,7 @@ export const createUser = async (req, res) => {
   try {
     const { userName, email, role, password } = req.body
     const newUser = await userService.createUser({ userName, email, role, password })
+    console.log('Created user: ', newUser)
     res.status(OK).json(newUser)
   } catch (error) {
     if (error.message === 'Email already exists') {
@@ -38,6 +39,7 @@ export const createUserWorkLogById = async (req, res) => {
 export const getUserWorkLogsById = async (req, res) => {
   try {
     const user = await userService.getUserWorkLogsById(req.params.id)
+    console.log('Work logs user: ', user)
     res.status(OK).json(user)
   } catch (error) {
     console.error('Error getting work logs:', error)
@@ -47,7 +49,7 @@ export const getUserWorkLogsById = async (req, res) => {
 export const getAllUsers = async (req, res) => {
   try {
     const users = await userService.getAllUsers()
-    console.log(users)
+    console.log('All users: ', users)
     res.status(OK).json(users)
   } catch (error) {
     console.error('Error fetching users:', error)
@@ -57,6 +59,7 @@ export const getAllUsers = async (req, res) => {
 export const getUser = async (req, res) => {
   try {
     const user = await userService.getUser(req.params.id)
+    console.log('Getting user: ', user)
     res.status(OK).json(user)
   } catch (error) {
     console.log('Error getting user:', error)
@@ -73,7 +76,7 @@ export const editUser = async (req, res) => {
       role,
       password,
     })
-    
+    console.log('Edited user: ', editedUser)
     res.status(OK).json(editedUser)
   } catch (error) {
     if (error.message === 'Password cannot be the same as the old password') {
@@ -91,6 +94,7 @@ export const editUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
   try {
     const user = await userService.deleteUser(req.params.id)
+    console.log('Deleted user :', user)
     res.status(OK).json(user)
   } catch (error) {
     if (error.message === 'User not found') {

@@ -3,15 +3,12 @@ import { Button, FlatList, View, Text } from 'react-native'
 import { getAllUsers } from '../src/api/userApi'
 import User from '../models/User'
 import renderItemForList from '../utils/renderItemForList'
-import userApi from '../src/api/userApi'
+import {deleteUser} from '../src/api/userApi'
 import { AuthContext } from '../context/AuthContext'
 const UserListScreen = ({ navigation }) => {
   const [users, setUsers] = useState([])
   const { logout } = useContext(AuthContext)
 
-  const handleLogout = () => {
-    logout()
-  }
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -31,11 +28,14 @@ const UserListScreen = ({ navigation }) => {
     fetchUsers()
   }, [])
 
-  const handleShow = (user) => { navigation.navigate('UserWorkLogs', user.id) }
-  const handleEdit = (user) => { navigation.navigate('EditSensitiveInfo', user.id) }
-  const handleDelete = async (user) => { 
+  const handleLogout = () => { logout() }
+  const handleAdd = () => { navigation.navigate('AddUser') }
+  const handleShow = (id) => { navigation.navigate('UserWorkLogs', {id}) }
+  const handleEdit = (id) => { navigation.navigate('EditSensitiveInfo', {id}) }
+  const handleDelete = async (id) => { 
     try {
-      await userApi.deleteUser(user.id)
+      await deleteUser(id)
+      setUsers(prevUsers => prevUsers.filter(u => u.id !== id))
     } catch (error){
       if (error.message === 'User not found' || 'Failed deleting user') return
     }
@@ -56,7 +56,7 @@ const UserListScreen = ({ navigation }) => {
           renderItem={({item}) => renderItemForList({ item }, handleShow, handleEdit, handleDelete)}
         />
       </View>
-      <Button title="asdasd"></Button>
+      <Button title="Add new user" onPress={handleAdd}></Button>
       <View style={{ marginTop: 100 }}> 
           <Button title="LOGOUT" onPress={handleLogout}/>
          </View>

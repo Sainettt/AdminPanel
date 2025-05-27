@@ -10,13 +10,13 @@ const UserItem = ({user, onShow, onEdit, onDelete}) => {
             <Text>{role}</Text>
             <View style={styles.containerUserFunctions}>
                 <TouchableOpacity onPress={onShow}>
-                    <Image/>
+                    <Image source={require(`../assets/images/workLogs.svg`)}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={onEdit}>
-                    <Image/>
+                    <Image source={require(`../assets/images/editUser.svg`)}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={onDelete}>
-                    <Image/>
+                    <Image source={require(`../assets/images/deleteUser.svg`)}/>
                 </TouchableOpacity>
             </View>
         </View>
