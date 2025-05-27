@@ -47,6 +47,7 @@ export const getUserWorkLogsById = async (req, res) => {
 export const getAllUsers = async (req, res) => {
   try {
     const users = await userService.getAllUsers()
+    console.log(users)
     res.status(OK).json(users)
   } catch (error) {
     console.error('Error fetching users:', error)

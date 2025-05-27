@@ -3,9 +3,9 @@ import UserItem from '../components/UserItem';
     return (
         <UserItem 
             user={item}
-            onShow={() => onShow(item)}
-            onEdit={() =>onEdit(item)}
-            onDelete={() =>onDelete(item)}
+            onShow={() => onShow(item.id)}
+            onEdit={() => onEdit(item.id)}
+            onDelete={() => onDelete(item.id)}
         />
     )
 }

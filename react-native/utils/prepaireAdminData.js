@@ -1,4 +1,4 @@
-import { hashPassword } from './hashPassword';
+import {hashPassword} from './hashPassword';
 const prepareAdminData = (userName, email, password) => ({
   userName,
   email,
