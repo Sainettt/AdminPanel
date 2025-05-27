@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { styles } from '../styles/mainStyles'
 
 const UserItem = ({user, onShow, onEdit, onDelete}) => {
-    const {userName, role} = user.getSummary()
+    const { userName, role } = user
     return (
         <View style={styles.containerUserComponent}>
             <Text>{userName}</Text>

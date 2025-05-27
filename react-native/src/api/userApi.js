@@ -25,6 +25,16 @@ export const showUserWorkLogs = async (userId) => {
         } else throw new Error('Failed to fetch user work logs')
     }
 }
+export const getUserSensitiveInfo = async (userId) => {
+    try{
+        const response = await api.get(`/user/${userId}`)
+        return response.data
+    } catch(error) {
+        const message = error.response?.data?.message
+        if (message === 'User not found'){ throw new Error('Failed getting user info')}
+        else throw new Error('User not found')
+    }
+}
 export const editUserSensitiveInfo = async (userId, userData) => {
     try {
         const response = await api.put(`/user/${userId}`, userData)

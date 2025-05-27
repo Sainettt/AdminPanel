@@ -4,7 +4,7 @@ import { authenticateToken } from '../utils/authenticateToken.js'
 
 const userRouter = express.Router()
 
-// userRouter.use(authenticateToken)
+userRouter.use(authenticateToken)
 userRouter.route('/')
 
 .get(userController.getAllUsers)

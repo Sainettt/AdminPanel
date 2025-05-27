@@ -1,7 +1,7 @@
 import React from 'react';
 import {useFonts} from 'expo-font';
 import {AuthProvider} from './context/AuthContext';
-import { RootNavigator } from './navigators/RootNavigator';
+import RootNavigator from './navigators/RootNavigator';
 
 export default function App() {
 

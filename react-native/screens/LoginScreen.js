@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { View, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, Platform } from 'react-native'
 import { styles } from '../styles/authStyles'
 import AuthField from '../components/AuthFields'
@@ -24,7 +24,7 @@ const LoginScreen = ({navigation}) => {
       const {token} = await loginAdmin(userName, email, password)
       await saveToken(token)
       login()
-      navigation.navigate('UserList')
+  
 
     } catch (error){
       if (error.message === 'Unauthorized. Please check your credentials') {

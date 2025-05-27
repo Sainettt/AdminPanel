@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import { deleteToken, getToken } from '../utils/tokenStorage';
 import api from '../src/api/axiosInstance'
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setisLoggedIn] = useState(false);

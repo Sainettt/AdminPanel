@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { Keyboard, View, TouchableWithoutFeedback, KeyboardAvoidingView, Platform} from 'react-native'
 import AuthField from '../components/AuthFields'
 import { styles } from '../styles/authStyles'
@@ -36,7 +36,6 @@ const RegisterScreen = ({navigation}) => {
       const {token} = await registerAdmin(userName, email, password)
       await saveToken(token)
       login()
-      navigation.navigate('UserList')
 
     } catch (error) {
       if (error.message === 'Email already exists') {

@@ -7,7 +7,7 @@ const setLogout = (cb) => {
 }
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'http://192.168.0.227:3000/api',
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
