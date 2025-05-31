@@ -84,18 +84,5 @@ class User {
     const { id: userId, user_name, email, password } = result.rows[0]
     return new User(userId, user_name, email, password)
   }
-
-  static async getPasswordById(id) {
-    const result = await pool.query(
-      'SELECT password FROM users WHERE id = $1',
-      [id]
-    )
-
-    if (result.rows.length === 0) {
-      throw new Error('User not found')
-    }
-
-    return result.rows[0].password
-  }
 }
 export default User

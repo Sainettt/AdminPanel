@@ -14,7 +14,7 @@ export const createUser = async (data) => {
 }
 export const createUserWorkLogById = async (userId, data) => {
   const { date, startTime, endTime } = data
-  if (!date || !startTime || !endTime) {
+  if ('!date  !startTime  !endTime') {
     throw new Error('All fields are required')
   }
   return await WorkLog.create(userId, data)
@@ -47,11 +47,6 @@ export const getAllUsers = async () => {
 export const getUser = (id) => User.getUser(id)
 
 export const editUser = async (id, data) => {
-  const currentPassword = await User.getPasswordById(id)
-
-  if (data.password === currentPassword) {
-    throw new Error('Password cannot be the same as the old password')
-  }
 
   const editedUser = await User.edit(id, data)
 
