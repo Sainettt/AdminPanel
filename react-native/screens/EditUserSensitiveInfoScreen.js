@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from 'react-native'
 import { styles } from '../styles/mainStyles'
 import UserEdit from '../components/UserEdit'
 import NavigatePanel from '../components/NavigatePanel'
@@ -24,7 +30,7 @@ const EditUserSensitiveInfoScreen = ({ navigation, route }) => {
           userName: response.userName || '',
           email: response.email || '',
           role: response.role || '',
-          password: response.password || ''
+          password: response.password || '',
         })
       } catch {
         throw new Error('Failed to get user')
@@ -44,51 +50,53 @@ const EditUserSensitiveInfoScreen = ({ navigation, route }) => {
   }
 
   return (
-    <View style={styles.containerUserListScreen}>
-      <View style={styles.containerNameScreen}>
-        <Text style={styles.textNameScreen}>Edit</Text>
-      </View>
-      <View style={styles.containerEditUser}>
-        <UserEdit
-          text="user name"
-          editText={user.userName}
-          onChangeText={(newText) => setUser({ ...user, userName: newText })}
-        />
-        <UserEdit
-          text="email"
-          editText={user.email}
-          onChangeText={(newText) => setUser({ ...user, email: newText })}
-        />
-        <UserEdit
-          text="role"
-          editText={user.role}
-          onChangeText={(newText) => setUser({ ...user, role: newText })}
-        />
-        <UserEdit
-          text="password"
-          editText={user.password}
-          onChangeText={(newText) => setUser({ ...user, password: newText })}
-        />
-        <TouchableOpacity
-          onPress={() => {
-            const { id, ...userData } = user
-            handleSaveInfo(id, userData)
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.containerUserListScreen}>
+        <View style={styles.containerNameScreen}>
+          <Text style={styles.textNameScreen}>Edit</Text>
+        </View>
+        <View style={styles.containerEditUser}>
+          <UserEdit
+            text="user name"
+            editText={user.userName}
+            onChangeText={(newText) => setUser({ ...user, userName: newText })}
+          />
+          <UserEdit
+            text="email"
+            editText={user.email}
+            onChangeText={(newText) => setUser({ ...user, email: newText })}
+          />
+          <UserEdit
+            text="role"
+            editText={user.role}
+            onChangeText={(newText) => setUser({ ...user, role: newText })}
+          />
+          <UserEdit
+            text="password"
+            editText={user.password}
+            onChangeText={(newText) => setUser({ ...user, password: newText })}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              const { id, ...userData } = user
+              handleSaveInfo(id, userData)
+            }}
+          >
+            <View style={styles.containerSaveButton}>
+              <Text style={styles.textSaveButton}>Save</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <NavigatePanel
+          onPressList={() => {
+            navigation.navigate('UserList')
           }}
-        >
-          <View style={styles.containerSaveButton}>
-            <Text style={styles.textSaveButton}>Save</Text>
-          </View>
-        </TouchableOpacity>
+          onPressAdd={() => {
+            navigation.navigate('AddUser')
+          }}
+        />
       </View>
-      <NavigatePanel
-        onPressList={() => {
-          navigation.navigate('UserList')
-        }}
-        onPressAdd={() => {
-          navigation.navigate('AddUser')
-        }}
-      />
-    </View>
+    </TouchableWithoutFeedback>
   )
 }
 export default EditUserSensitiveInfoScreen

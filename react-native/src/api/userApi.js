@@ -37,7 +37,7 @@ export const getUserSensitiveInfo = async (userId) => {
 }
 export const editUserSensitiveInfo = async (userId, userData) => {
   try {
-    const response = await api.putr(`/user/${userId}`, useData)
+    const response = await api.put(`/user/${userId}`, userData)
     return response.data
   } catch (error) {
     const message = error.response?.data?.message
