@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
-  container: {
+  containerForLogoName: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -15,16 +15,16 @@ export const styles = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     backgroundColor: '#EBEDFF',
-    shadowColor: '#000', 
+    shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
   },
-  containerLogoName : {
+  containerLogoName: {
     width: '100%',
     height: 160,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10
+    marginTop: 10,
   },
   textWelcome: {
     fontFamily: 'Poppins-ExtraBold',
@@ -54,14 +54,19 @@ export const styles = StyleSheet.create({
     fontFamily: 'Poppins-ExtraBold',
     fontSize: 32,
   },
-  bottomInfo : {
+  btnAuthText: {
+    color: '#FFFFFF',
+    fontFamily: 'Poppins-Bold',
+    fontSize: '26',
+  },
+  bottomInfo: {
     width: '100%',
     height: 55,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#E4E4E4',
     marginTop: 120,
-    shadowColor: '#000', 
+    shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
   },
@@ -71,45 +76,66 @@ export const styles = StyleSheet.create({
     color: '#777777',
   },
   labelAuthProperty: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 12,
-    color: '#777777',
+    fontFamily: 'Poppins-Light',
+    fontSize: 14,
+    color: '#858796',
     marginBottom: 10,
     marginTop: 10,
+    marginStart: 10,
   },
   containerAuthField: {
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
   },
   borderAuthField: {
-    width : 300,
+    width: 300,
     height: 40,
     alignItems: 'center',
     paddingStart: 15,
-    borderWidth: 2,
-    borderColor: '#777777',
-    borderRadius: 10,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#D0D0D0',
+    borderRadius: 15,
   },
   inputAuthField: {
-  flex: 1,             
-  width: '100%',        
-  fontSize: 16,        
-  fontFamily: 'Poppins-Regular',
-  color: '#000000',    
-},
+    flex: 1,
+    width: '100%',
+    fontSize: 14,
+    fontFamily: 'Poppins-Regular',
+    color: '#858796',
+  },
   authSubmitButton: {
-    width: 170,
-    height: 40,
+    width: 190,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 40,
     borderRadius: 15,
-    backgroundColor: '#0A8DDE',
+    backgroundColor: '#4E73DF',
+    borderWidth: 1,
+    borderColor: '#D0D0D0',
   },
-  authSubmitButtonClickableArea:{
+  authSubmitButtonClickableArea: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%', 
-  }
+    width: '100%',
+  },
+  containerAskText: {
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginTop: 15,
+    flexDirection: 'row',
+  },
+  askText: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 10,
+    color: '#858796',
+  },
+  askTextButton: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 12,
+    color: '#4E73DF',
+    marginStart: 5,
+  },
 })

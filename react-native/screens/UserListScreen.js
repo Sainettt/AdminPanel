@@ -1,9 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Button, FlatList, View, Text } from 'react-native'
+import {
+  Button,
+  FlatList,
+  View,
+  Text,
+} from 'react-native'
+import UserListTexts from '../components/UserListTexts'
+import NavigatePanel from '../components/NavigatePanel'
+import { styles } from '../styles/mainStyles'
 import { getAllUsers } from '../src/api/userApi'
 import User from '../models/User'
 import renderItemForList from '../utils/renderItemForList'
-import {deleteUser} from '../src/api/userApi'
+import { deleteUser } from '../src/api/userApi'
 import { AuthContext } from '../context/AuthContext'
 const UserListScreen = ({ navigation }) => {
   const [users, setUsers] = useState([])
@@ -13,7 +21,7 @@ const UserListScreen = ({ navigation }) => {
     const fetchUsers = async () => {
       try {
         const response = await getAllUsers()
-        const data = response?.users;
+        const data = response?.users
         console.log(data)
         const parsedUsers = data.map(
           ({ userId, userName, role }) =>
@@ -28,38 +36,59 @@ const UserListScreen = ({ navigation }) => {
     fetchUsers()
   }, [])
 
-  const handleLogout = () => { logout() }
-  const handleAdd = () => { navigation.navigate('AddUser') }
-  const handleShow = (id) => { navigation.navigate('UserWorkLogs', {id}) }
-  const handleEdit = (id) => { navigation.navigate('EditSensitiveInfo', {id}) }
-  const handleDelete = async (id) => { 
+  const handleLogout = () => {
+    logout()
+  }
+  const handleAdd = () => {
+    navigation.navigate('AddUser')
+  }
+  const handleShow = (id) => {
+    navigation.navigate('UserWorkLogs', { id })
+  }
+  const handleEdit = (id) => {
+    navigation.navigate('EditSensitiveInfo', { id })
+  }
+  const handleDelete = async (id) => {
     try {
       await deleteUser(id)
-      setUsers(prevUsers => prevUsers.filter(u => u.id !== id))
-    } catch (error){
+      setUsers((prevUsers) => prevUsers.filter((u) => u.id !== id))
+    } catch (error) {
       if (error.message === 'User not found' || 'Failed deleting user') return
     }
-   }
-  
+  }
+
   return (
-    <View>
-      <Text></Text>
-      <View>
-        <View>
-          <Text></Text>
-          <Text></Text>
-          <Text></Text>
-        </View>
+    <View style={styles.containerUserListScreen}>
+      <View style={styles.containerNameScreen}>
+        <Text style={styles.textNameScreen}>Workers</Text>
+      </View>
+      <View style={styles.containerUserList}>
+        <UserListTexts />
+        <View
+          style={{
+            width: '100%',
+            height: 2,
+            backgroundColor: '#858796',
+            marginTop: 10,
+          }}
+        />
         <FlatList
           data={users}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({item}) => renderItemForList({ item }, handleShow, handleEdit, handleDelete)}
+          renderItem={({ item }) =>
+            renderItemForList({ item }, handleShow, handleEdit, handleDelete)
+          }
+          contentContainerStyle={{ paddingTop: 20 }}
+          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+          horizontal={false}
+          showsHorizontalScrollIndicator={false}
+          directionalLockEnabled={true}
         />
+        <View style={{ marginTop: 10 }}>
+          <Button title="LOGOUT" onPress={handleLogout} />
+        </View>
       </View>
-      <Button title="Add new user" onPress={handleAdd}></Button>
-      <View style={{ marginTop: 100 }}> 
-          <Button title="LOGOUT" onPress={handleLogout}/>
-         </View>
+      <NavigatePanel onPressList={() => {navigation.navigate('UserList')}} onPressAdd={handleAdd}/>
     </View>
   )
 }
