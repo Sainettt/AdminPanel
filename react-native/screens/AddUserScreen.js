@@ -1,13 +1,12 @@
 import React from 'react'
-import {Button, View} from 'react-native'
+import {View} from 'react-native'
+import {styles} from '../styles/mainStyles'
 const AddUserScreen = ({navigation}) => {
     return (
-        <View>
-            {/* 
-                1. окно для ввода userName email password  и кнопка Save
-                2. при нажатии на кнопку Save нас переносит на UserListScreen
-                3. кнопка возврата (UserButton) на случай отказа от добавления юзера
-            */}
+        <View style={{...styles.containerUserListScreen, justifyContent: 'center'}}>
+            <View style={styles.containerNameScreen}>
+                <Text style={styles.textNameScreen}>Edit</Text>
+            </View>
         </View>
     )
 }

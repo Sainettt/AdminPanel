@@ -1,14 +1,14 @@
-import React, { createContext, useEffect, useState } from 'react';
-import { deleteToken, getToken } from '../utils/tokenStorage';
+import React, { createContext, useEffect, useState } from 'react'
+import { deleteToken, getToken } from '../utils/tokenStorage'
 import api from '../src/api/axiosInstance'
 
-export const AuthContext = createContext();
+export const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setisLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setisLoggedIn] = useState(false)
+  const [loading, setLoading] = useState(true)
 
-  useEffect( () => {
+  useEffect(() => {
     setLoading(true)
     const checkToken = async () => {
       const token = await getToken()
@@ -18,19 +18,19 @@ export const AuthProvider = ({ children }) => {
     checkToken()
   }, [])
 
-  const login = () => setisLoggedIn(true);
+  const login = () => setisLoggedIn(true)
   const logout = () => {
-    setisLoggedIn(false);
-    deleteToken();
-  };
+    setisLoggedIn(false)
+    deleteToken()
+  }
   useEffect(() => {
     api.setLogout(logout)
   }, [])
 
   if (loading) return null
   return (
-    <AuthContext.Provider value={{isLoggedIn, login, logout, loading}}>
+    <AuthContext.Provider value={{ isLoggedIn, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}

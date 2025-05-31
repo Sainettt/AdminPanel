@@ -1,13 +1,16 @@
 import api from './axiosInstance'
-import {hashPassword}  from '../../utils/hashPassword'
+import { hashPassword } from '../../utils/hashPassword'
 import prepareAdminData from '../../utils/prepaireAdminData'
 
 export const loginAdmin = async (userName, email, password) => {
-    console.log('Password:', password)
-    const hashedPassword = hashPassword(password)
-    console.log('Hashed Password:', hashedPassword)
+  console.log('Password:', password)
+  const hashedPassword = hashPassword(password)
+  console.log('Hashed Password:', hashedPassword)
   try {
-    const response = await api.post('/admin/login', prepareAdminData(userName, email, hashedPassword))
+    const response = await api.post(
+      '/admin/login',
+      prepareAdminData(userName, email, hashedPassword)
+    )
     return response.data
   } catch (error) {
     const message = error.response?.data?.message
@@ -17,7 +20,7 @@ export const loginAdmin = async (userName, email, password) => {
       throw new Error(message)
     } else if (error.message === '401') {
       throw new Error('Unauthorized. Please check your credentials')
-    } else{
+    } else {
       console.error('Error logging in admin:', error)
       throw new Error('Login failed. Please try again')
     }
@@ -25,9 +28,12 @@ export const loginAdmin = async (userName, email, password) => {
 }
 
 export const registerAdmin = async (userName, email, password) => {
-    const hashedPassword = hashPassword(password)
+  const hashedPassword = hashPassword(password)
   try {
-    const response = await api.post('/admin/register', prepareAdminData(userName, email, hashedPassword))
+    const response = await api.post(
+      '/admin/register',
+      prepareAdminData(userName, email, hashedPassword)
+    )
     return response.data
   } catch (error) {
     const message = error.response?.data?.message
