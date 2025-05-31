@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { getToken, TOKEN_KEY } from '../../utils/tokenStorage';
+import axios from 'axios'
+import { getToken, TOKEN_KEY } from '../../utils/tokenStorage'
 
 let logout = null
 const setLogout = (cb) => {
@@ -12,18 +12,18 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-});
+})
 
 api.interceptors.request.use(
   async (config) => {
-    const token = await getToken(TOKEN_KEY);
+    const token = await getToken(TOKEN_KEY)
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${token}`
     }
-    return config;
+    return config
   },
   (error) => Promise.reject(error)
-);
+)
 
 api.interceptors.response.use(
   (response) => response,
@@ -31,8 +31,8 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       logout?.()
     }
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
-);
+)
 
-export default {...api, setLogout};
+export default { ...api, setLogout }
