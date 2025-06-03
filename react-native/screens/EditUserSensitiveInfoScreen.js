@@ -11,6 +11,7 @@ import { styles } from '../styles/mainStyles'
 import UserEdit from '../components/UserEdit'
 import NavigatePanel from '../components/NavigatePanel'
 import { getUserSensitiveInfo, editUserSensitiveInfo } from '../src/api/userApi'
+import {isValidEmail } from '../utils/validateEmail'
 
 const EditUserSensitiveInfoScreen = ({ navigation, route }) => {
   const [user, setUser] = useState({
@@ -42,6 +43,10 @@ const EditUserSensitiveInfoScreen = ({ navigation, route }) => {
   console.log(user)
   const handleSaveInfo = async (id, data) => {
     try {
+      if (isValidEmail(data.email) === false) {
+        alert('Invalid email format')
+        return
+      }
       const response = await editUserSensitiveInfo(id, data)
       navigation.navigate('UserList')
       return response

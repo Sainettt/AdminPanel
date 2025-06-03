@@ -11,6 +11,7 @@ import { styles } from '../styles/mainStyles'
 import AddUserField from '../components/AddUserField'
 import NavigatePanel from '../components/NavigatePanel'
 import { createUser } from '../src/api/userApi'
+import { isValidEmail } from '../utils/validateEmail'
 
 const AddUserScreen = ({ navigation }) => {
   const [userName, setUserName] = useState('')
@@ -23,6 +24,10 @@ const AddUserScreen = ({ navigation }) => {
     try {
       if (password !== confirmPassword) {
         alert('Passwords do not match')
+        return
+      }
+      if (isValidEmail(data.email) === false) {
+        alert('Invalid email format')
         return
       }
       const response = await createUser({
