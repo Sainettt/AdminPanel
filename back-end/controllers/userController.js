@@ -10,7 +10,7 @@ export const createUser = async (req, res) => {
     console.log('Created user: ', newUser)
     res.status(OK).json(newUser)
   } catch (error) {
-    if (error.message === 'Email already exists') {
+    if (error.message === 'User already exists') {
       res.status(BAD_REQUEST).json({ message: error.message })
     } else {
       console.error('Error creating user:', error)

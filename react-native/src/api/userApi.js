@@ -35,6 +35,19 @@ export const getUserSensitiveInfo = async (userId) => {
     } else throw new Error('User not found')
   }
 }
+export const createUser = async (userData) => {
+  try {
+    const response = await api.post('/user', userData)
+    return response.data
+  } catch (error) {
+    const message = error.response?.data?.message
+    if (message === 'User already exists') {
+      throw new Error('User already exists')
+    } else {
+      throw new Error('Failed creating user')
+    }
+  }
+}
 export const editUserSensitiveInfo = async (userId, userData) => {
   try {
     const response = await api.put(`/user/${userId}`, userData)

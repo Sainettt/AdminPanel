@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, TextInput } from 'react-native'
 import { styles } from '../styles/authStyles'
 
 const AuthField = ({ label, value, onChangeText, secureTextEntry = false }) => {

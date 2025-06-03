@@ -150,4 +150,36 @@ export const styles = StyleSheet.create({
     fontSize: 28,
     color: '#FFFFFF'
   },
+  containerAddScreen: {
+    width: '100%',
+    height: 560,
+    marginTop: 10,
+    backgroundColor: '#EBEDFF',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  containerAddUserField: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    marginTop: 10,
+  },
+  textAddUserField: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 14,
+    color: '#858796',
+    marginStart: 10,
+  },
+  containerAddUserFieldInput: {
+    width: 230,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+  inputAddUserField: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 12,
+    color: '#858796',
+  },
 })
