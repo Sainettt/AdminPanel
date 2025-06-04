@@ -118,7 +118,9 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     color: '#858796'
   },
-  textNameEditText: {
+  inputNameText: {
+    width: '100%',
+    height: '100%',
     fontFamily: 'Poppins-Medium',
     fontSize: 12,
     color: '#858796'
@@ -154,11 +156,12 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: 560,
     marginTop: 10,
+    paddingTop: 45,
     backgroundColor: '#EBEDFF',
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   containerAddUserField: {
     justifyContent: 'flex-start',
@@ -176,8 +179,14 @@ export const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     alignItems: 'flex-start',
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: '#C3C5D9',
+    backgroundColor: '#FFFFFF',
   },
   inputAddUserField: {
+    width: '100%',
+    height: '100%',
     fontFamily: 'Poppins-Medium',
     fontSize: 12,
     color: '#858796',

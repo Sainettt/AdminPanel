@@ -14,30 +14,37 @@ import { createUser } from '../src/api/userApi'
 import { isValidEmail } from '../utils/validateEmail'
 
 const AddUserScreen = ({ navigation }) => {
-  const [userName, setUserName] = useState('')
-  const [email, setEmail] = useState('')
-  const [role, setRole] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [newUser, setNewUser] = useState({
+    id: '',
+    userName: '',
+    email: '',
+    role: '',
+    password: '',
+    confirmPassword: '',
+  })
 
   const handleAddUser = async () => {
+    const { userName, email, role, password, confirmPassword } = newUser
     try {
+      if (!userName || !email || !role || !password || !confirmPassword) {
+        alert('Please fill in all fields')
+        return
+      }
       if (password !== confirmPassword) {
         alert('Passwords do not match')
         return
       }
-      if (isValidEmail(data.email) === false) {
+      if (isValidEmail(email) === false) {
         alert('Invalid email format')
         return
       }
-      const response = await createUser({
+      await createUser({
         userName,
         email,
         role,
         password,
       })
       navigation.navigate('UserList')
-      console.log('User created successfully:', response)
     } catch (error) {
       console.error('Error creating user:', error)
     }
@@ -50,24 +57,34 @@ const AddUserScreen = ({ navigation }) => {
           <Text style={styles.textNameScreen}>Edit</Text>
         </View>
         <View style={styles.containerAddScreen}>
+          <View style={{marginStart: 35}}>
           <AddUserField
             label="user name"
-            value={userName}
-            onChangeText={setUserName}
+            value={newUser.userName}
+            onChangeText={(text) => setNewUser({ ...newUser, userName: text })}
           />
-          <AddUserField label="email" value={email} onChangeText={setEmail} />
-          <AddUserField label="role" value={role} onChangeText={setRole} />
+          <AddUserField
+            label="email"
+            value={newUser.email}
+            onChangeText={(text) => setNewUser({ ...newUser, email: text })}
+          />
+          <AddUserField
+            label="role"
+            value={newUser.role}
+            onChangeText={(text) => setNewUser({ ...newUser, role: text })}
+          />
           <AddUserField
             label="password"
-            value={password}
-            onChangeText={setPassword}
+            value={newUser.password}
+            onChangeText={(text) => setNewUser({ ...newUser, password: text })}
           />
           <AddUserField
             label="confirm password"
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
+            value={newUser.confirmPassword}
+            onChangeText={(text) => setNewUser({ ...newUser, confirmPassword: text })}
           />
-          <TouchableOpacity onPress={handleAddUser}>
+          </View>
+          <TouchableOpacity style={{marginTop: 35, alignSelf: 'center'}} onPress={handleAddUser}>
             <Image source={require('../assets/images/addUserButton.png')} />
           </TouchableOpacity>
         </View>

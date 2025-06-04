@@ -3,6 +3,7 @@ import api from './axiosInstance'
 export const getAllUsers = async () => {
   try {
     const response = await api.get('/user')
+    console.log(`Fetched users: `, response.data)
     return response.data
   } catch (error) {
     const message = error.response?.data?.message
@@ -16,6 +17,7 @@ export const getAllUsers = async () => {
 export const showUserWorkLogs = async (userId) => {
   try {
     const response = await api.get(`/user/${userId}/worklogs`)
+    console.log(`Fetched work logs: `, response.data)
     return response.data
   } catch (error) {
     const message = error.response?.data?.message
@@ -27,6 +29,7 @@ export const showUserWorkLogs = async (userId) => {
 export const getUserSensitiveInfo = async (userId) => {
   try {
     const response = await api.get(`/user/${userId}`)
+    console.log(`Fetched user info: `, response.data)
     return response.data
   } catch (error) {
     const message = error.response?.data?.message
@@ -38,6 +41,7 @@ export const getUserSensitiveInfo = async (userId) => {
 export const createUser = async (userData) => {
   try {
     const response = await api.post('/user', userData)
+    console.log(`Created user: `, response.data)
     return response.data
   } catch (error) {
     const message = error.response?.data?.message
@@ -51,6 +55,7 @@ export const createUser = async (userData) => {
 export const editUserSensitiveInfo = async (userId, userData) => {
   try {
     const response = await api.put(`/user/${userId}`, userData)
+    console.log(`Updated user: `, response.data)
     return response.data
   } catch (error) {
     const message = error.response?.data?.message
@@ -62,6 +67,7 @@ export const editUserSensitiveInfo = async (userId, userData) => {
 export const deleteUser = async (userId) => {
   try {
     const response = await api.delete(`/user/${userId}`)
+    console.log(`Deleted user: `, response.data)
     return response.data
   } catch (error) {
     const message = error.response?.data?.message

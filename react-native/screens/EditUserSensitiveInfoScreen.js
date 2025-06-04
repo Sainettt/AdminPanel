@@ -25,8 +25,8 @@ const EditUserSensitiveInfoScreen = ({ navigation, route }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
+
         const response = await getUserSensitiveInfo(id)
-        console.log(response)
         setUser({
           id: response.id || '',
           userName: response.userName || '',
@@ -40,7 +40,7 @@ const EditUserSensitiveInfoScreen = ({ navigation, route }) => {
     }
     fetchUser()
   }, [])
-  console.log(user)
+  
   const handleSaveInfo = async (id, data) => {
     try {
       if (isValidEmail(data.email) === false) {

@@ -10,7 +10,7 @@ const UserEdit = ({text, editText, onChangeText}) => {
             </View>
             <View style={styles.containerNameEditText}>
                 <TextInput
-                 style={styles.textNameEditText}
+                 style={styles.inputNameText}
                  value={editText}
                  editable={true}
                  onChangeText={onChangeText}

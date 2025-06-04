@@ -22,13 +22,13 @@ const UserListScreen = ({ navigation }) => {
       try {
         const response = await getAllUsers()
         const data = response?.users
-        console.log(data)
         const parsedUsers = data.map(
           ({ userId, userName, role }) =>
             new User(userId, userName, null, role, null)
         )
+        
         setUsers(parsedUsers)
-        console.log(parsedUsers)
+
       } catch (error) {
         console.error(error)
       }
