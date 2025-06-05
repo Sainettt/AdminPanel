@@ -34,9 +34,6 @@ class WorkLog {
       'SELECT * FROM work_logs WHERE user_id = $1 ORDER BY work_date DESC',
       [userId]
     )
-    if (result.rows.length === 0) {
-      throw new Error('Error getting work logs')
-    }
 
     return result.rows.map((log) => {
       const {

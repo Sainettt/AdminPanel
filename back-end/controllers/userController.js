@@ -21,10 +21,10 @@ export const createUser = async (req, res) => {
   }
 }
 export const createUserWorkLogById = async (req, res) => {
-  const { date, startTime, endTime, hours } = req.body
+  const { date, startTime, endTime } = req.body
   const userId = req.params.id
   try {
-    const newWorkLog = await userService.createUserWorkLogById(userId, {date, startTime, endTime, hours})
+    const newWorkLog = await userService.createUserWorkLogById(userId, {date, startTime, endTime})
     res.status(OK).json(newWorkLog)
 } catch (error) {
     if(error.message === 'All fields are required') {
