@@ -4,6 +4,7 @@ import UserListScreen from '../screens/UserListScreen'
 import AddUserScreen from '../screens/AddUserScreen'
 import EditUserSensitiveInfoScreen from '../screens/EditUserSensitiveInfoScreen'
 import UserWorkLogsScreen from '../screens/UserWorkLogsScreen'
+import AddWorkLogScreen from '../screens/AddWorkLogScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -17,6 +18,7 @@ export default function AppNavigator() {
         component={EditUserSensitiveInfoScreen}
       />
       <Stack.Screen name="UserWorkLogs" component={UserWorkLogsScreen} />
+      <Stack.Screen name="AddWorkLog" component={AddWorkLogScreen} />
     </Stack.Navigator>
   )
 }

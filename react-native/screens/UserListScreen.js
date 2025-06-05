@@ -1,11 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
-import {
-  Button,
-  FlatList,
-  View,
-  Text,
-} from 'react-native'
-import UserListTexts from '../components/UserListTexts'
+import { Button, FlatList, View, Text } from 'react-native'
+import ListTexts from '../components/ListTexts'
 import NavigatePanel from '../components/NavigatePanel'
 import { styles } from '../styles/mainStyles'
 import { getAllUsers } from '../src/api/userApi'
@@ -26,9 +21,8 @@ const UserListScreen = ({ navigation }) => {
           ({ userId, userName, role }) =>
             new User(userId, userName, null, role, null)
         )
-        
-        setUsers(parsedUsers)
 
+        setUsers(parsedUsers)
       } catch (error) {
         console.error(error)
       }
@@ -39,11 +33,8 @@ const UserListScreen = ({ navigation }) => {
   const handleLogout = () => {
     logout()
   }
-  const handleAdd = () => {
-    navigation.navigate('AddUser')
-  }
-  const handleShow = (id) => {
-    navigation.navigate('UserWorkLogs', { id })
+  const handleShow = (id, userName) => {
+    navigation.navigate('UserWorkLogs', { id, userName })
   }
   const handleEdit = (id) => {
     navigation.navigate('EditSensitiveInfo', { id })
@@ -63,7 +54,7 @@ const UserListScreen = ({ navigation }) => {
         <Text style={styles.textNameScreen}>Workers</Text>
       </View>
       <View style={styles.containerUserList}>
-        <UserListTexts />
+        <ListTexts firstValue="name" secondValue="role" thirdValue="options" />
         <View
           style={{
             width: '100%',
@@ -88,7 +79,14 @@ const UserListScreen = ({ navigation }) => {
           <Button title="LOGOUT" onPress={handleLogout} />
         </View>
       </View>
-      <NavigatePanel onPressList={() => {navigation.navigate('UserList')}} onPressAdd={handleAdd}/>
+      <NavigatePanel
+        onPressList={() => {
+          navigation.navigate('UserList')
+        }}
+        onPressAdd={() => {
+          navigation.navigate('AddUser')
+        }}
+      />
     </View>
   )
 }

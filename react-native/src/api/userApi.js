@@ -75,3 +75,26 @@ export const deleteUser = async (userId) => {
     else throw new Error('Failed deleting user')
   }
 }
+export const getUserWorkLogs = async (userId) => {
+  try {
+    const response = await api.get(`/user/${userId}/worklogs`)
+    console.log(`Fetched user work logs: `, response.data)
+    return response.data
+  } catch (error) {
+    const message = error.response?.data?.message
+    if (message === 'Error getting work logs') {
+      throw new Error('Error getting work logs')
+    } else {
+      throw new Error('Failed to fetch user work logs')
+    }
+  }
+}
+export const createWorkLog = async (userId, workLogData) => {
+  try {
+    const response = await api.post(`/user/${userId}/worklogs`, workLogData)
+    console.log(`Created work log: `, response.data)
+    return response.data
+  } catch {
+    throw new Error('Failed to create work log')
+  }
+}

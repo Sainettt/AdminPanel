@@ -54,7 +54,7 @@ const AddUserScreen = ({ navigation }) => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.containerUserListScreen}>
         <View style={styles.containerNameScreen}>
-          <Text style={styles.textNameScreen}>Edit</Text>
+          <Text style={styles.textNameScreen}>Add User</Text>
         </View>
         <View style={styles.containerAddScreen}>
           <View style={{marginStart: 35}}>
