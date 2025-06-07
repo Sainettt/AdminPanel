@@ -14,6 +14,7 @@ import { registerAdmin } from '../src/api/adminApi'
 import { saveToken } from '../utils/tokenStorage'
 import { AuthContext } from '../context/AuthContext'
 import { isValidEmail } from '../utils/validateEmail'
+import { showNotification } from '../utils/notifications'
 
 const RegisterScreen = ({ navigation }) => {
   const [userName, setUserName] = useState('')
@@ -42,6 +43,7 @@ const RegisterScreen = ({ navigation }) => {
       const { token } = await registerAdmin(userName, email, password)
       await saveToken(token)
       login()
+      await showNotification(userName)
     } catch (error) {
       if (error.message === 'Email already exists') {
         alert('Email already exists')

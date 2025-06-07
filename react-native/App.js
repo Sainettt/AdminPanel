@@ -1,9 +1,20 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useFonts } from 'expo-font'
 import { AuthProvider } from './context/AuthContext'
 import RootNavigator from './navigators/RootNavigator'
+import { registerForPushNotificationsAsync } from './utils/notifications'
+
+
+/**
+ * Main application component.
+ */
 
 export default function App() {
+
+  useEffect(() => {
+    registerForPushNotificationsAsync()
+  }, [])
+
   const [fontsLoaded] = useFonts({
     Poppins: require('./assets/fonts/Poppins-Regular.ttf'),
     'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),

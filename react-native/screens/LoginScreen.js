@@ -13,6 +13,7 @@ import AuthAskText from '../components/AuthAskText'
 import { loginAdmin } from '../src/api/adminApi'
 import { saveToken } from '../utils/tokenStorage'
 import { AuthContext } from '../context/AuthContext'
+import { showNotification } from '../utils/notifications'
 
 const LoginScreen = ({ navigation }) => {
   const [userName, setUserName] = useState('')
@@ -29,6 +30,7 @@ const LoginScreen = ({ navigation }) => {
       const { token } = await loginAdmin(userName, email, password)
       await saveToken(token)
       login()
+      await showNotification(userName)
     } catch (error) {
       if (error.message === 'Unauthorized. Please check your credentials') {
         logout()

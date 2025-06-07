@@ -193,7 +193,7 @@ export const styles = StyleSheet.create({
   },
   workLogFieldContainer: {
     width: 400,
-    height: 25,
+    height: 50,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -207,7 +207,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     fontSize: 14,
     color: '#60616B',
-    marginStart: 40,
+    marginStart: 20,
   },
   workLogTime: {
     fontFamily: 'Poppins-Regular',
