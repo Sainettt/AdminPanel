@@ -2,11 +2,6 @@ import axios from 'axios'
 import { getToken, TOKEN_KEY } from '../../utils/tokenStorage'
 import API_URL from '../../constans/API_URL'
 
-let logout = null
-const setLogout = (cb) => {
-  logout = cb
-}
-
 const api = axios.create({
   baseURL: API_URL,
   timeout: 7000,
@@ -27,12 +22,7 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      logout?.()
-    }
-    return Promise.reject(error)
-  }
+  (error) => Promise.reject(error)
 )
 
-export default { ...api, setLogout }
+export default api

@@ -26,8 +26,21 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(false)
     deleteToken()
   }
+
   useEffect(() => {
-    api.setLogout(logout)
+    const responseInterceptor = api.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response?.status === 401) {
+          logout()
+        }
+        return Promise.reject(error)
+      }
+    )
+
+    return () => {
+      api.interceptors.response.eject(responseInterceptor)
+    }
   }, [])
 
   return (

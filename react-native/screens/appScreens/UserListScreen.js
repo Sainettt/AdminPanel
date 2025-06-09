@@ -16,7 +16,6 @@ const UserListScreen = ({ navigation }) => {
     const fetchUsers = async () => {
       try {
         const response = await getAllUsers()
-        console.log('response:', response)
         const data = response?.users
         const parsedUsers = data.map(
           ({ userId, userName, role }) =>
