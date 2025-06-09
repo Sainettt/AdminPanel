@@ -5,13 +5,15 @@ import {
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
-  
 } from 'react-native'
-import { styles } from '../styles/mainStyles'
-import UserEdit from '../components/UserEdit'
-import NavigatePanel from '../components/NavigatePanel'
-import { getUserSensitiveInfo, editUserSensitiveInfo } from '../src/api/userApi'
-import {isValidEmail } from '../utils/validateEmail'
+import { styles } from '../../styles/mainStyles'
+import UserEdit from '../../components/UserEdit'
+import NavigatePanel from '../../components/NavigatePanel'
+import {
+  getUserSensitiveInfo,
+  editUserSensitiveInfo,
+} from '../../src/api/userApi'
+import { isValidEmail } from '../../utils/validateEmail'
 
 const EditUserSensitiveInfoScreen = ({ navigation, route }) => {
   const [user, setUser] = useState({
@@ -25,7 +27,6 @@ const EditUserSensitiveInfoScreen = ({ navigation, route }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-
         const response = await getUserSensitiveInfo(id)
         setUser({
           id: response.id || '',
@@ -40,7 +41,7 @@ const EditUserSensitiveInfoScreen = ({ navigation, route }) => {
     }
     fetchUser()
   }, [])
-  
+
   const handleSaveInfo = async (id, data) => {
     try {
       if (isValidEmail(data.email) === false) {

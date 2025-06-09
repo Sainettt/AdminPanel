@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Button, FlatList, View, Text } from 'react-native'
-import ListTexts from '../components/ListTexts'
-import NavigatePanel from '../components/NavigatePanel'
-import { styles } from '../styles/mainStyles'
-import { getAllUsers } from '../src/api/userApi'
-import User from '../models/User'
-import renderItemForList from '../utils/renderItemForList'
-import { deleteUser } from '../src/api/userApi'
-import { AuthContext } from '../context/AuthContext'
+import ListTexts from '../../components/ListTexts'
+import NavigatePanel from '../../components/NavigatePanel'
+import { styles } from '../../styles/mainStyles'
+import { getAllUsers } from '../../src/api/userApi'
+import User from '../../models/User'
+import renderItemForList from '../../utils/renderItemForList'
+import { deleteUser } from '../../src/api/userApi'
+import { AuthContext } from '../../context/AuthContext'
 const UserListScreen = ({ navigation }) => {
   const [users, setUsers] = useState([])
   const { logout } = useContext(AuthContext)
@@ -16,6 +16,7 @@ const UserListScreen = ({ navigation }) => {
     const fetchUsers = async () => {
       try {
         const response = await getAllUsers()
+        console.log('response:', response)
         const data = response?.users
         const parsedUsers = data.map(
           ({ userId, userName, role }) =>

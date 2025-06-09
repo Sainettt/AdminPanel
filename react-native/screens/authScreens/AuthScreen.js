@@ -1,11 +1,11 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
-import { styles } from '../styles/authStyles'
-const HomeScreen = ({ navigation }) => {
+import { styles } from '../../styles/authStyles'
+const AuthScreen = ({ navigation }) => {
   return (
     <View style={styles.containerForLogoName}>
       <View style={styles.containerLogoName}>
-        <Image source={require('../assets/images/stfHoursBlueLogo.png')} />
+        <Image source={require('../../assets/images/stfHoursBlueLogo.png')} />
         <Text style={styles.textWelcome}>Staff Hours</Text>
       </View>
 
@@ -35,4 +35,4 @@ const HomeScreen = ({ navigation }) => {
     </View>
   )
 }
-export default HomeScreen
+export default AuthScreen

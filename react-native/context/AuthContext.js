@@ -5,29 +5,31 @@ import api from '../src/api/axiosInstance'
 export const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setisLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    setLoading(true)
     const checkToken = async () => {
-      const token = await getToken()
-      if (token) login()
+      try {
+        const token = await getToken()
+        if (token) login()
+      } catch (error) {
+        console.error('Error checking token:', error)
+      }
       setLoading(false)
     }
     checkToken()
   }, [])
 
-  const login = () => setisLoggedIn(true)
+  const login = () => setIsLoggedIn(true)
   const logout = () => {
-    setisLoggedIn(false)
+    setIsLoggedIn(false)
     deleteToken()
   }
   useEffect(() => {
     api.setLogout(logout)
   }, [])
 
-  if (loading) return null
   return (
     <AuthContext.Provider value={{ isLoggedIn, login, logout, loading }}>
       {children}

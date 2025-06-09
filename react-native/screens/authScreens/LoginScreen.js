@@ -6,14 +6,14 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native'
-import { styles } from '../styles/authStyles'
-import AuthField from '../components/AuthFields'
-import AuthSubmitButton from '../components/AuthSubmitButton'
-import AuthAskText from '../components/AuthAskText'
-import { loginAdmin } from '../src/api/adminApi'
-import { saveToken } from '../utils/tokenStorage'
-import { AuthContext } from '../context/AuthContext'
-import { showNotification } from '../utils/notifications'
+import { styles } from '../../styles/authStyles'
+import AuthField from '../../components/AuthFields'
+import AuthSubmitButton from '../../components/AuthSubmitButton'
+import AuthAskText from '../../components/AuthAskText'
+import { loginAdmin } from '../../src/api/adminApi'
+import { saveToken } from '../../utils/tokenStorage'
+import { AuthContext } from '../../context/AuthContext'
+import { showNotification } from '../../utils/notifications'
 
 const LoginScreen = ({ navigation }) => {
   const [userName, setUserName] = useState('')

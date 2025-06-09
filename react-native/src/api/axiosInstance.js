@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { getToken, TOKEN_KEY } from '../../utils/tokenStorage'
+import API_URL from '../../constans/API_URL'
 
 let logout = null
 const setLogout = (cb) => {
@@ -7,13 +8,12 @@ const setLogout = (cb) => {
 }
 
 const api = axios.create({
-  baseURL: 'http://192.168.0.227:3000/api',
-  timeout: 5000,
+  baseURL: API_URL,
+  timeout: 7000,
   headers: {
     'Content-Type': 'application/json',
   },
 })
-
 api.interceptors.request.use(
   async (config) => {
     const token = await getToken(TOKEN_KEY)

@@ -7,11 +7,11 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native'
-import { styles } from '../styles/mainStyles'
-import AddUserField from '../components/AddUserField'
-import NavigatePanel from '../components/NavigatePanel'
-import { createUser } from '../src/api/userApi'
-import { isValidEmail } from '../utils/validateEmail'
+import { styles } from '../../styles/mainStyles'
+import AddUserField from '../../components/AddUserField'
+import NavigatePanel from '../../components/NavigatePanel'
+import { createUser } from '../../src/api/userApi'
+import { isValidEmail } from '../../utils/validateEmail'
 
 const AddUserScreen = ({ navigation }) => {
   const [newUser, setNewUser] = useState({
@@ -57,35 +57,44 @@ const AddUserScreen = ({ navigation }) => {
           <Text style={styles.textNameScreen}>Add User</Text>
         </View>
         <View style={styles.containerAddScreen}>
-          <View style={{marginStart: 35}}>
-          <AddUserField
-            label="user name"
-            value={newUser.userName}
-            onChangeText={(text) => setNewUser({ ...newUser, userName: text })}
-          />
-          <AddUserField
-            label="email"
-            value={newUser.email}
-            onChangeText={(text) => setNewUser({ ...newUser, email: text })}
-          />
-          <AddUserField
-            label="role"
-            value={newUser.role}
-            onChangeText={(text) => setNewUser({ ...newUser, role: text })}
-          />
-          <AddUserField
-            label="password"
-            value={newUser.password}
-            onChangeText={(text) => setNewUser({ ...newUser, password: text })}
-          />
-          <AddUserField
-            label="confirm password"
-            value={newUser.confirmPassword}
-            onChangeText={(text) => setNewUser({ ...newUser, confirmPassword: text })}
-          />
+          <View style={{ marginStart: 35 }}>
+            <AddUserField
+              label="user name"
+              value={newUser.userName}
+              onChangeText={(text) =>
+                setNewUser({ ...newUser, userName: text })
+              }
+            />
+            <AddUserField
+              label="email"
+              value={newUser.email}
+              onChangeText={(text) => setNewUser({ ...newUser, email: text })}
+            />
+            <AddUserField
+              label="role"
+              value={newUser.role}
+              onChangeText={(text) => setNewUser({ ...newUser, role: text })}
+            />
+            <AddUserField
+              label="password"
+              value={newUser.password}
+              onChangeText={(text) =>
+                setNewUser({ ...newUser, password: text })
+              }
+            />
+            <AddUserField
+              label="confirm password"
+              value={newUser.confirmPassword}
+              onChangeText={(text) =>
+                setNewUser({ ...newUser, confirmPassword: text })
+              }
+            />
           </View>
-          <TouchableOpacity style={{marginTop: 35, alignSelf: 'center'}} onPress={handleAddUser}>
-            <Image source={require('../assets/images/addUserButton.png')} />
+          <TouchableOpacity
+            style={{ marginTop: 35, alignSelf: 'center' }}
+            onPress={handleAddUser}
+          >
+            <Image source={require('../../assets/images/addUserButton.png')} />
           </TouchableOpacity>
         </View>
         <NavigatePanel

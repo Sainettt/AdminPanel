@@ -6,15 +6,15 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native'
-import AuthField from '../components/AuthFields'
-import { styles } from '../styles/authStyles'
-import AuthSubmitButton from '../components/AuthSubmitButton'
-import AuthAskText from '../components/AuthAskText'
-import { registerAdmin } from '../src/api/adminApi'
-import { saveToken } from '../utils/tokenStorage'
-import { AuthContext } from '../context/AuthContext'
-import { isValidEmail } from '../utils/validateEmail'
-import { showNotification } from '../utils/notifications'
+import AuthField from '../../components/AuthFields'
+import { styles } from '../../styles/authStyles'
+import AuthSubmitButton from '../../components/AuthSubmitButton'
+import AuthAskText from '../../components/AuthAskText'
+import { registerAdmin } from '../../src/api/adminApi'
+import { saveToken } from '../../utils/tokenStorage'
+import { AuthContext } from '../../context/AuthContext'
+import { isValidEmail } from '../../utils/validateEmail'
+import { showNotification } from '../../utils/notifications'
 
 const RegisterScreen = ({ navigation }) => {
   const [userName, setUserName] = useState('')

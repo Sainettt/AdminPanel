@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
   View,
   Text,
@@ -7,12 +7,12 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native'
-import { styles } from '../styles/mainStyles'
-import AddUserField from '../components/AddUserField'
-import NavigatePanel from '../components/NavigatePanel'
-import { createWorkLog } from '../src/api/userApi'
+import { styles } from '../../styles/mainStyles'
+import AddUserField from '../../components/AddUserField'
+import NavigatePanel from '../../components/NavigatePanel'
+import { createWorkLog } from '../../src/api/userApi'
 
-const AddWorkLogScreen = ({navigation, route}) => {
+const AddWorkLogScreen = ({ navigation, route }) => {
   const [newLog, setNewLog] = useState({
     date: '',
     startTime: '',
@@ -22,17 +22,17 @@ const AddWorkLogScreen = ({navigation, route}) => {
 
   const handleAddLog = async (id, logData) => {
     try {
-        const { date, startTime, endTime } = logData
-        if (!date || !startTime || !endTime) {
-          alert('Please fill in all fields')
-          return
-        }
-        console.log('Start time: ', startTime, 'End time: ', endTime)
-        const response = await createWorkLog(id, { date, startTime, endTime })
-        navigation.navigate('UserWorkLogs', { id, userName })
-        return response
+      const { date, startTime, endTime } = logData
+      if (!date || !startTime || !endTime) {
+        alert('Please fill in all fields')
+        return
+      }
+      console.log('Start time: ', startTime, 'End time: ', endTime)
+      const response = await createWorkLog(id, { date, startTime, endTime })
+      navigation.navigate('UserWorkLogs', { id, userName })
+      return response
     } catch (error) {
-        alert(error.message)
+      alert(error.message)
     }
   }
 
@@ -59,9 +59,14 @@ const AddWorkLogScreen = ({navigation, route}) => {
               value={newLog.endTime}
               onChangeText={(text) => setNewLog({ ...newLog, endTime: text })}
             />
-            <TouchableOpacity style={{ marginTop: 100 }} onPress={() => {handleAddLog(id, newLog)}}>
+            <TouchableOpacity
+              style={{ marginTop: 100 }}
+              onPress={() => {
+                handleAddLog(id, newLog)
+              }}
+            >
               <Image
-                source={require('../assets/images/addWorkLogsButton.png')}
+                source={require('../../assets/images/addWorkLogsButton.png')}
               />
             </TouchableOpacity>
           </View>
