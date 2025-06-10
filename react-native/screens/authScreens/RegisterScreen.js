@@ -13,8 +13,9 @@ import AuthAskText from '../../components/AuthAskText'
 import { registerAdmin } from '../../src/api/adminApi'
 import { saveToken } from '../../utils/tokenStorage'
 import { AuthContext } from '../../context/AuthContext'
-import { isValidEmail } from '../../utils/validateEmail'
+import { isValidateInfo } from '../../utils/validateRegister'
 import { showNotification } from '../../utils/notifications'
+
 
 const RegisterScreen = ({ navigation }) => {
   const [userName, setUserName] = useState('')
@@ -24,20 +25,8 @@ const RegisterScreen = ({ navigation }) => {
   const { login } = useContext(AuthContext)
 
   const handleRegister = async () => {
-    if (!userName || !email || !password || !confirmPassword) {
-      alert('Please fill in all fields')
-      return
-    }
 
-    if (password !== confirmPassword) {
-      alert('Passwords do not match')
-      return
-    }
-
-    if (!isValidEmail(email)) {
-      alert('Please enter a valid email address')
-      return
-    }
+    if (!isValidateInfo(userName, email, password, confirmPassword)) return
 
     try {
       const { token } = await registerAdmin(userName, email, password)

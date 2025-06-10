@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native'
+import Toast from 'react-native-toast-message'
 import { styles } from '../../styles/authStyles'
 import AuthField from '../../components/AuthFields'
 import AuthSubmitButton from '../../components/AuthSubmitButton'
@@ -14,17 +15,17 @@ import { loginAdmin } from '../../src/api/adminApi'
 import { saveToken } from '../../utils/tokenStorage'
 import { AuthContext } from '../../context/AuthContext'
 import { showNotification } from '../../utils/notifications'
+import { isValidateInfo } from '../../utils/validateLogin'
 
 const LoginScreen = ({ navigation }) => {
   const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { logout, login } = useContext(AuthContext)
+
   const handleLogin = async () => {
-    if (!userName || !email || !password) {
-      alert('Please fill in all fields')
-      return
-    }
+    
+    if (!isValidateInfo(userName, email, password)) return
 
     try {
       const { token } = await loginAdmin(userName, email, password)
