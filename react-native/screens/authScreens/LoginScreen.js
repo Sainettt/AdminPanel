@@ -76,7 +76,7 @@ const LoginScreen = ({ navigation }) => {
               secureTextEntry={true}
             />
 
-            <AuthSubmitButton onPress={handleLogin} text="Sign In" />
+            <AuthSubmitButton onPress={handleLogin} text="Sign In" loading={loading} />
             <AuthAskText
               onPress={() => {
                 navigation.navigate('Register')

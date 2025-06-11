@@ -77,7 +77,7 @@ const RegisterScreen = ({ navigation }) => {
               onChangeText={setconfirmPassword}
               secureTextEntry={true}
             />
-            <AuthSubmitButton onPress={handleRegister} text="Sign In" />
+            <AuthSubmitButton onPress={handleRegister} text="Sign In" loading={loading} />
             <AuthAskText
               onPress={() => {
                 navigation.navigate('Login')
