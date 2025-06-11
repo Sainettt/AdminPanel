@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
+  ActivityIndicator
 } from 'react-native'
 import { styles } from '../../styles/mainStyles'
 import UserEdit from '../../components/UserEdit'
@@ -13,7 +14,7 @@ import {
   getUserSensitiveInfo,
   editUserSensitiveInfo,
 } from '../../src/api/userApi'
-import { isValidEmail } from '../../utils/validateEmail'
+import { isValidateInfo } from '../../utils/validationFn/validateUserInfo'
 import { showToast } from '../../utils/toastMessage'
 
 const EditUserSensitiveInfoScreen = ({ navigation, route }) => {
@@ -25,9 +26,11 @@ const EditUserSensitiveInfoScreen = ({ navigation, route }) => {
     password: '',
   })
   const { id } = route.params
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        setLoading(true)
         const response = await getUserSensitiveInfo(id)
         setUser({
           id: response.id || '',
@@ -37,27 +40,33 @@ const EditUserSensitiveInfoScreen = ({ navigation, route }) => {
           password: response.password || '',
         })
       } catch {
-        throw new Error('Failed to get user')
+        showToast('error', 'Failed to fetch user information')
+        navigation.navigate('UserList')
+      } finally {
+        setLoading(false)
       }
     }
     fetchUser()
   }, [])
 
   const handleSaveInfo = async (id, data) => {
+    const { userName, email, role, password } = data
     try {
-      if (isValidEmail(data.email) === false) {
-        showToast('error', 'Invalid email format')
-        return
-      }
+      setLoading(true)
+      if (!isValidateInfo(userName, email, password, role)) return
       const response = await editUserSensitiveInfo(id, data)
       navigation.navigate('UserList')
       return response
     } catch {
       showToast('error', 'Failed to edit user')
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
+    <View style={{flex: 1}}>
+
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.containerUserListScreen}>
         <View style={styles.containerNameScreen}>
@@ -85,9 +94,10 @@ const EditUserSensitiveInfoScreen = ({ navigation, route }) => {
             onChangeText={(newText) => setUser({ ...user, password: newText })}
           />
           <TouchableOpacity
-            onPress={() => {
+            disabled={loading}
+            onPress={async () => {
               const { id, ...userData } = user
-              handleSaveInfo(id, userData)
+              await handleSaveInfo(id, userData)
             }}
           >
             <View style={styles.containerSaveButton}>
@@ -105,6 +115,20 @@ const EditUserSensitiveInfoScreen = ({ navigation, route }) => {
         />
       </View>
     </TouchableWithoutFeedback>
-  )
+    {loading && (
+      <View
+        style={{
+          position: 'absolute',
+          top: 0, left: 0, right: 0, bottom: 0,
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 10,
+        }}
+      >
+        <ActivityIndicator size="large" color="#4E73DF" />
+      </View>
+    )}
+  </View>
+)
 }
 export default EditUserSensitiveInfoScreen

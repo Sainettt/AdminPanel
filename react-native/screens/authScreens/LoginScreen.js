@@ -15,7 +15,7 @@ import { loginAdmin } from '../../src/api/adminApi'
 import { saveToken } from '../../utils/tokenStorage'
 import { AuthContext } from '../../context/AuthContext'
 import { showNotification } from '../../utils/notifications'
-import { isValidateInfo } from '../../utils/validateLogin'
+import { isValidateInfo } from '../../utils/validationFn/validateLogin'
 import { showToast } from '../../utils/toastMessage'
 
 const LoginScreen = ({ navigation }) => {
@@ -59,16 +59,7 @@ const LoginScreen = ({ navigation }) => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
       >
-        {loading ? (
-          <View
-            style={[
-              styles.authContainer,
-              { justifyContent: 'center', alignItems: 'center' },
-            ]}
-          >
-            <ActivityIndicator size="large" color="#0000ff" />
-          </View>
-        ) : (
+        <View style={{ flex: 1 }}>
           <View style={styles.authContainer}>
             <View style={{ marginTop: 160 }}>
               <AuthField
@@ -94,7 +85,24 @@ const LoginScreen = ({ navigation }) => {
               buttonText="Sign Up"
             />
           </View>
-        )}
+
+          {loading && (
+            <View
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                justifyContent: 'center',
+                alignItems: 'center',
+                zIndex: 10,
+              }}
+            >
+              <ActivityIndicator size="large" color="#4E73DF" />
+            </View>
+          )}
+        </View>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   )

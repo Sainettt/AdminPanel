@@ -14,7 +14,7 @@ import AuthAskText from '../../components/AuthAskText'
 import { registerAdmin } from '../../src/api/adminApi'
 import { saveToken } from '../../utils/tokenStorage'
 import { AuthContext } from '../../context/AuthContext'
-import { isValidateInfo } from '../../utils/validateRegister'
+import { isValidateInfo } from '../../utils/validationFn/validateRegister'
 import { showNotification } from '../../utils/notifications'
 import { showToast } from '../../utils/toastMessage'
 
@@ -55,16 +55,7 @@ const RegisterScreen = ({ navigation }) => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
       >
-        {loading ? (
-          <View
-            style={[
-              styles.authContainer,
-              { justifyContent: 'center', alignItems: 'center' },
-            ]}
-          >
-            <ActivityIndicator size="large" color="#0000ff" />
-          </View>
-        ) : (
+        <View style={{ flex: 1 }}>
           <View style={styles.authContainer}>
             <View style={{ marginTop: 160 }}>
               <AuthField
@@ -95,7 +86,24 @@ const RegisterScreen = ({ navigation }) => {
               buttonText="Log In"
             />
           </View>
-        )}
+
+          {loading && (
+            <View
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                justifyContent: 'center',
+                alignItems: 'center',
+                zIndex: 10,
+              }}
+            >
+              <ActivityIndicator size="large" color="#4E73DF" />
+            </View>
+          )}
+        </View>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   )

@@ -1,5 +1,5 @@
 import { isValidEmail } from './validateEmail'
-import { showToast } from './toastMessage'
+import { showToast } from '../toastMessage'
 export const isValidateInfo = (userName, email, password) => {
   if (!userName || !email || !password) {
     showToast('error', 'Please fill in all fields')
