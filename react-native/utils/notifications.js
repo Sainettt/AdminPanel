@@ -50,7 +50,7 @@ export async function registerForPushNotificationsAsync() {
   await Notifications.scheduleNotificationAsync({
     content: {
       title: 'Success!',
-      body: `You have successfully registered, ${userName} 👏`,
+      body: `You've been successfully authenticated, ${userName} 👏`,
     },
     trigger: {seconds: 1},
   });

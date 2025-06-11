@@ -5,8 +5,8 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Platform,
+  ActivityIndicator,
 } from 'react-native'
-import Toast from 'react-native-toast-message'
 import { styles } from '../../styles/authStyles'
 import AuthField from '../../components/AuthFields'
 import AuthSubmitButton from '../../components/AuthSubmitButton'
@@ -16,18 +16,20 @@ import { saveToken } from '../../utils/tokenStorage'
 import { AuthContext } from '../../context/AuthContext'
 import { showNotification } from '../../utils/notifications'
 import { isValidateInfo } from '../../utils/validateLogin'
+import { showToast } from '../../utils/toastMessage'
 
 const LoginScreen = ({ navigation }) => {
   const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
   const { logout, login } = useContext(AuthContext)
 
   const handleLogin = async () => {
-    
     if (!isValidateInfo(userName, email, password)) return
 
     try {
+      setLoading(true)
       const { token } = await loginAdmin(userName, email, password)
       await saveToken(token)
       login()
@@ -35,14 +37,19 @@ const LoginScreen = ({ navigation }) => {
     } catch (error) {
       if (error.message === 'Unauthorized. Please check your credentials') {
         logout()
-        alert('Unauthorized. Please check your credentials')
+        showToast('error', 'Unauthorized. Please check your credentials')
       } else if (error.message === 'Login failed. Please try again') {
-        alert('Login failed. Please try again')
+        showToast('error', 'Login failed. Please try again')
       } else if (error.message === 'Admin not found') {
-        alert('Admin not found')
+        showToast('error', 'Admin not found')
       } else {
-        alert('An unexpected error occurred. Please try again later.')
+        showToast(
+          'error',
+          'An unexpected error occurred. Please try again later.'
+        )
       }
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -52,31 +59,42 @@ const LoginScreen = ({ navigation }) => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
       >
-        <View style={styles.authContainer}>
-          <View style={{ marginTop: 160 }}>
+        {loading ? (
+          <View
+            style={[
+              styles.authContainer,
+              { justifyContent: 'center', alignItems: 'center' },
+            ]}
+          >
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        ) : (
+          <View style={styles.authContainer}>
+            <View style={{ marginTop: 160 }}>
+              <AuthField
+                label="user name"
+                value={userName}
+                onChangeText={setUserName}
+              />
+            </View>
+            <AuthField label="email" value={email} onChangeText={setEmail} />
             <AuthField
-              label="user name"
-              value={userName}
-              onChangeText={setUserName}
+              label="password"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={true}
+            />
+
+            <AuthSubmitButton onPress={handleLogin} text="Sign In" />
+            <AuthAskText
+              onPress={() => {
+                navigation.navigate('Register')
+              }}
+              mainText="Don`t have an account?"
+              buttonText="Sign Up"
             />
           </View>
-          <AuthField label="email" value={email} onChangeText={setEmail} />
-          <AuthField
-            label="password"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={true}
-          />
-
-          <AuthSubmitButton onPress={handleLogin} text="Sign In" />
-          <AuthAskText
-            onPress={() => {
-              navigation.navigate('Register')
-            }}
-            mainText="Don`t have an account?"
-            buttonText="Sign Up"
-          />
-        </View>
+        )}
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   )

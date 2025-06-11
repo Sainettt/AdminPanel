@@ -1,9 +1,10 @@
 import React, {useEffect} from 'react'
+import { View } from 'react-native'
 import { useFonts } from 'expo-font'
 import { AuthProvider } from './context/AuthContext'
 import RootNavigator from './navigators/RootNavigator'
 import { registerForPushNotificationsAsync } from './utils/notifications'
-
+import Toast from 'react-native-toast-message'
 
 /**
  * Main application component.
@@ -28,8 +29,11 @@ export default function App() {
   }
 
   return (
-    <AuthProvider>
-      <RootNavigator />
-    </AuthProvider>
+    <View style={{ flex: 1 }}>
+      <AuthProvider>
+        <RootNavigator />
+      </AuthProvider>
+      <Toast />
+    </View>
   )
 }

@@ -11,7 +11,7 @@ import { AuthContext } from '../../context/AuthContext'
 const UserListScreen = ({ navigation }) => {
   const [users, setUsers] = useState([])
   const { logout } = useContext(AuthContext)
-
+  
   useEffect(() => {
     const fetchUsers = async () => {
       try {

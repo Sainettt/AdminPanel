@@ -12,6 +12,7 @@ import AddUserField from '../../components/AddUserField'
 import NavigatePanel from '../../components/NavigatePanel'
 import { createUser } from '../../src/api/userApi'
 import { isValidEmail } from '../../utils/validateEmail'
+import { showToast } from '../../utils/toastMessage'
 
 const AddUserScreen = ({ navigation }) => {
   const [newUser, setNewUser] = useState({
@@ -27,15 +28,15 @@ const AddUserScreen = ({ navigation }) => {
     const { userName, email, role, password, confirmPassword } = newUser
     try {
       if (!userName || !email || !role || !password || !confirmPassword) {
-        alert('Please fill in all fields')
+        showToast('error', 'Please fill in all fields')
         return
       }
       if (password !== confirmPassword) {
-        alert('Passwords do not match')
+        showToast('error', 'Passwords do not match')
         return
       }
       if (isValidEmail(email) === false) {
-        alert('Invalid email format')
+        showToast('error', 'Invalid email format')
         return
       }
       await createUser({

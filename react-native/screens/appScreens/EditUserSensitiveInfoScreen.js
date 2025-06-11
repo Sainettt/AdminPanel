@@ -14,6 +14,7 @@ import {
   editUserSensitiveInfo,
 } from '../../src/api/userApi'
 import { isValidEmail } from '../../utils/validateEmail'
+import { showToast } from '../../utils/toastMessage'
 
 const EditUserSensitiveInfoScreen = ({ navigation, route }) => {
   const [user, setUser] = useState({
@@ -45,14 +46,14 @@ const EditUserSensitiveInfoScreen = ({ navigation, route }) => {
   const handleSaveInfo = async (id, data) => {
     try {
       if (isValidEmail(data.email) === false) {
-        alert('Invalid email format')
+        showToast('error', 'Invalid email format')
         return
       }
       const response = await editUserSensitiveInfo(id, data)
       navigation.navigate('UserList')
       return response
     } catch {
-      alert('Failed to edit user')
+      showToast('error', 'Failed to edit user')
     }
   }
 

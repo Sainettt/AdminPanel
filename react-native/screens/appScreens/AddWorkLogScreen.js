@@ -11,6 +11,7 @@ import { styles } from '../../styles/mainStyles'
 import AddUserField from '../../components/AddUserField'
 import NavigatePanel from '../../components/NavigatePanel'
 import { createWorkLog } from '../../src/api/userApi'
+import { showToast } from '../../utils/toastMessage'
 
 const AddWorkLogScreen = ({ navigation, route }) => {
   const [newLog, setNewLog] = useState({
@@ -24,7 +25,7 @@ const AddWorkLogScreen = ({ navigation, route }) => {
     try {
       const { date, startTime, endTime } = logData
       if (!date || !startTime || !endTime) {
-        alert('Please fill in all fields')
+        showToast('error', 'Please fill in all fields')
         return
       }
       console.log('Start time: ', startTime, 'End time: ', endTime)
@@ -32,7 +33,7 @@ const AddWorkLogScreen = ({ navigation, route }) => {
       navigation.navigate('UserWorkLogs', { id, userName })
       return response
     } catch (error) {
-      alert(error.message)
+      showToast('error', error.message)
     }
   }
 

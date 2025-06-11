@@ -6,12 +6,11 @@ import AppNavigator from './AppNavigator'
 
 const RootNavigator = () => {
   const { isLoggedIn, loading } = useContext(AuthContext)
-  console.log('isLoggedIn:', isLoggedIn)
 
   if (loading) return null
   return (
     <NavigationContainer>
-      {isLoggedIn ? <AppNavigator /> : <AuthNavigator />}
+      {!isLoggedIn ? <AuthNavigator /> : <AppNavigator />}
     </NavigationContainer>
   )
 }
