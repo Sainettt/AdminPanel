@@ -6,7 +6,6 @@ import {
   Text,
   Keyboard,
   TouchableWithoutFeedback,
-  ActivityIndicator,
 } from 'react-native'
 import { styles } from '../../styles/mainStyles'
 import AddUserField from '../../components/AddUserField'
@@ -14,6 +13,7 @@ import NavigatePanel from '../../components/NavigatePanel'
 import { createUser } from '../../src/api/userApi'
 import { isValidateInfo } from '../../utils/validationFn/validateUserInfo'
 import { showToast } from '../../utils/toastMessage'
+import LoadingView from '../../components/LoadingView'
 
 const AddUserScreen = ({ navigation }) => {
   const [newUser, setNewUser] = useState({
@@ -52,7 +52,7 @@ const AddUserScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.mainContainer}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.containerUserListScreen}>
           <View style={styles.containerNameScreen}>
@@ -108,22 +108,7 @@ const AddUserScreen = ({ navigation }) => {
           />
         </View>
       </TouchableWithoutFeedback>
-        {loading && (
-          <View
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              justifyContent: 'center',
-              alignItems: 'center',
-              zIndex: 10,
-            }}
-          >
-            <ActivityIndicator size="large" color="#4E73DF" />
-          </View>
-        )}
+      <LoadingView loading={loading} />
     </View>
   )
 }

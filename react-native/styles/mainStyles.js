@@ -99,7 +99,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderWidth: 2,
     borderRadius: 15,
-    borderColor: '#C3C5D9'
+    borderColor: '#C3C5D9',
   },
   containerNameEditText: {
     width: 210,
@@ -111,19 +111,19 @@ export const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderWidth: 2,
     borderRadius: 15,
-    borderColor: '#C3C5D9'
+    borderColor: '#C3C5D9',
   },
   textNameText: {
     fontFamily: 'Poppins-Bold',
     fontSize: 12,
-    color: '#858796'
+    color: '#858796',
   },
   inputNameText: {
     width: '100%',
     height: '100%',
     fontFamily: 'Poppins-Medium',
     fontSize: 12,
-    color: '#858796'
+    color: '#858796',
   },
   containerEditUser: {
     width: '100%',
@@ -145,12 +145,12 @@ export const styles = StyleSheet.create({
     backgroundColor: '#4E73DF',
     borderWidth: 1,
     borderRadius: 15,
-    borderColor: '#C3C5D9'
+    borderColor: '#C3C5D9',
   },
   textSaveButton: {
     fontFamily: 'Poppins-ExtraBold',
     fontSize: 28,
-    color: '#FFFFFF'
+    color: '#FFFFFF',
   },
   containerAddScreen: {
     width: '100%',
@@ -214,5 +214,14 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     color: '#60616B',
     marginStart: 70,
+  },
+  separatingLine: {
+    width: '100%',
+    height: 2,
+    backgroundColor: '#858796',
+    marginTop: 10,
+  },
+  mainContainer : {
+    flex: 1
   },
 })

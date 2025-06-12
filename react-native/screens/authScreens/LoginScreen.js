@@ -5,12 +5,12 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Platform,
-  ActivityIndicator,
 } from 'react-native'
 import { styles } from '../../styles/authStyles'
 import AuthField from '../../components/AuthFields'
 import AuthSubmitButton from '../../components/AuthSubmitButton'
 import AuthAskText from '../../components/AuthAskText'
+import LoadingView from '../../components/LoadingView'
 import { loginAdmin } from '../../src/api/adminApi'
 import { saveToken } from '../../utils/tokenStorage'
 import { AuthContext } from '../../context/AuthContext'
@@ -85,23 +85,7 @@ const LoginScreen = ({ navigation }) => {
               buttonText="Sign Up"
             />
           </View>
-
-          {loading && (
-            <View
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                justifyContent: 'center',
-                alignItems: 'center',
-                zIndex: 10,
-              }}
-            >
-              <ActivityIndicator size="large" color="#4E73DF" />
-            </View>
-          )}
+          <LoadingView loading={loading} />
         </View>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>

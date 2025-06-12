@@ -3,9 +3,7 @@ import { hashPassword } from '../../utils/hashPassword'
 import prepareAdminData from '../../utils/prepaireAdminData'
 
 export const loginAdmin = async (userName, email, password) => {
-  console.log('Password:', password)
   const hashedPassword = hashPassword(password)
-  console.log('Hashed Password:', hashedPassword)
   try {
     const response = await api.post(
       '/admin/login',

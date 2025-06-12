@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { deleteToken, getToken } from '../utils/tokenStorage'
 import api from '../src/api/axiosInstance'
+import { showToast } from '../utils/toastMessage'
 
 export const AuthContext = createContext()
 
@@ -15,8 +16,10 @@ export const AuthProvider = ({ children }) => {
         if (token) login()
       } catch (error) {
         console.error('Error checking token:', error)
+        showToast('error', 'Failed to check authentication token')
+      } finally {
+        setLoading(false)
       }
-      setLoading(false)
     }
     checkToken()
   }, [])

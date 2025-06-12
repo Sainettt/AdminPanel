@@ -14,16 +14,19 @@ export const getAllUsers = async () => {
     }
   }
 }
-export const showUserWorkLogs = async (userId) => {
+
+export const getUserWorkLogs = async (userId) => {
   try {
     const response = await api.get(`/user/${userId}/worklogs`)
-    console.log(`Fetched work logs: `, response.data)
+    console.log(`Fetched user work logs: `, response.data)
     return response.data
   } catch (error) {
     const message = error.response?.data?.message
     if (message === 'Error getting work logs') {
       throw new Error('Error getting work logs')
-    } else throw new Error('Failed to fetch user work logs')
+    } else {
+      throw new Error('Internal server error')
+    }
   }
 }
 export const getUserSensitiveInfo = async (userId) => {
@@ -73,20 +76,6 @@ export const deleteUser = async (userId) => {
     const message = error.response?.data?.message
     if (message === 'User not found') throw new Error('User not found')
     else throw new Error('Failed deleting user')
-  }
-}
-export const getUserWorkLogs = async (userId) => {
-  try {
-    const response = await api.get(`/user/${userId}/worklogs`)
-    console.log(`Fetched user work logs: `, response.data)
-    return response.data
-  } catch (error) {
-    const message = error.response?.data?.message
-    if (message === 'Error getting work logs') {
-      throw new Error('Error getting work logs')
-    } else {
-      throw new Error('Failed to fetch user work logs')
-    }
   }
 }
 export const createWorkLog = async (userId, workLogData) => {

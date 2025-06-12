@@ -28,7 +28,6 @@ const AddWorkLogScreen = ({ navigation, route }) => {
         showToast('error', 'Please fill in all fields')
         return
       }
-      console.log('Start time: ', startTime, 'End time: ', endTime)
       const response = await createWorkLog(id, { date, startTime, endTime })
       navigation.navigate('UserWorkLogs', { id, userName })
       return response

@@ -1,20 +1,15 @@
-import React, {useEffect} from 'react'
+import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { useFonts } from 'expo-font'
 import { AuthProvider } from './context/AuthContext'
 import RootNavigator from './navigators/RootNavigator'
 import { registerForPushNotificationsAsync } from './utils/notifications'
 import Toast from 'react-native-toast-message'
-
-/**
- * Main application component.
- */
+import LoadingView from './components/LoadingView'
+import { showToast } from './utils/toastMessage'
 
 export default function App() {
-
-  useEffect(() => {
-    registerForPushNotificationsAsync()
-  }, [])
+  const [loading, setLoading] = useState(false)
 
   const [fontsLoaded] = useFonts({
     Poppins: require('./assets/fonts/Poppins-Regular.ttf'),
@@ -24,9 +19,21 @@ export default function App() {
     'Poppins-SemiBold': require('./assets/fonts/Poppins-SemiBold.ttf'),
     'Poppins-Light': require('./assets/fonts/Poppins-Light.ttf'),
   })
-  if (!fontsLoaded) {
-    return null
-  }
+
+  useEffect(() => {
+    const init = async () => {
+      try {
+        setLoading(true)
+        await registerForPushNotificationsAsync()
+      } catch (error) {
+        showToast('error', 'Failed to load fonts or register for notifications')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    init()
+  }, [])
 
   return (
     <View style={{ flex: 1 }}>
@@ -34,6 +41,7 @@ export default function App() {
         <RootNavigator />
       </AuthProvider>
       <Toast />
+      <LoadingView loading={loading} />
     </View>
   )
 }

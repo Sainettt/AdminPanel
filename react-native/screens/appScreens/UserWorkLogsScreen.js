@@ -5,7 +5,7 @@ import WorkLogField from '../../components/WorkLogField'
 import ListTexts from '../../components/ListTexts'
 import NavigatePanel from '../../components/NavigatePanel'
 import { getUserWorkLogs } from '../../src/api/userApi'
-
+import { showToast } from '../../utils/toastMessage'
 const UserWorkLogsScreen = ({ navigation, route }) => {
   const { id, userName } = route.params
   const [workLogs, setWorkLogs] = useState([])
@@ -16,7 +16,11 @@ const UserWorkLogsScreen = ({ navigation, route }) => {
         const response = await getUserWorkLogs(id)
         setWorkLogs(response.userWorkLogs)
       } catch (error) {
-        console.error(error)
+        if (error.message === 'Error getting work logs') {
+          showToast('error', error.message)
+        } else {
+          showToast('error', 'Internal server error')
+        }
       }
     }
     fetchUserWorkLogs()
