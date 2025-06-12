@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useCallback } from 'react'
 import { Button, FlatList, View, Text, Alert } from 'react-native'
 import ListTexts from '../../components/ListTexts'
 import NavigatePanel from '../../components/NavigatePanel'
+import MemoizedUserItem from '../../components/MemoizedUserItem'
 import { styles } from '../../styles/mainStyles'
 import { getAllUsers } from '../../src/api/userApi'
-import renderItemForList from '../../utils/renderItemForList'
 import { deleteUser } from '../../src/api/userApi'
 import { AuthContext } from '../../context/AuthContext'
 import LoadingView from '../../components/LoadingView'
@@ -43,16 +43,16 @@ const UserListScreen = ({ navigation }) => {
     fetchUsers()
   }, [])
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     logout()
-  }
-  const handleShow = (id, userName) => {
+  }, [logout])
+  const handleShow = useCallback((id, userName) => {
     navigation.navigate('UserWorkLogs', { id, userName })
-  }
-  const handleEdit = (id) => {
+  }, [navigation])
+  const handleEdit = useCallback((id) => {
     navigation.navigate('EditSensitiveInfo', { id })
-  }
-  const handleDelete = (id) => {
+  }, [navigation])
+  const handleDelete = useCallback((id) => {
     Alert.alert(
       'Confirm Delete',
       'Are you sure you want to delete this user?',
@@ -82,7 +82,18 @@ const UserListScreen = ({ navigation }) => {
       ],
       { cancelable: true }
     )
-  }
+  }, [setUsers])
+
+  const renderItem = useCallback(
+    ({ item }) =>
+      <MemoizedUserItem
+        item={item}
+        onShow={handleShow}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />,
+    [handleShow, handleEdit, handleDelete]
+  )
 
   return (
     <View style={{ flex: 1 }}>
@@ -101,14 +112,7 @@ const UserListScreen = ({ navigation }) => {
             <FlatList
               data={users}
               keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) =>
-                renderItemForList(
-                  { item },
-                  handleShow,
-                  handleEdit,
-                  handleDelete
-                )
-              }
+              renderItem={renderItem}
               contentContainerStyle={{ paddingTop: 20 }}
               ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
               horizontal={false}

@@ -31,4 +31,4 @@ const UserItem = ({ user, onShow, onEdit, onDelete }) => {
     </View>
   )
 }
-export default UserItem
+export default React.memo(UserItem)
