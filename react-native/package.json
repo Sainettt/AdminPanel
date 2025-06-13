@@ -20,6 +20,7 @@
     "expo-notifications": "~0.31.3",
     "expo-secure-store": "~14.2.3",
     "expo-status-bar": "~2.2.3",
+    "metro-react-native-babel-preset": "^0.77.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.2",
@@ -29,7 +30,11 @@
     "react-native-web": "^0.20.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0"
+    "@babel/core": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1",
+    "babel-jest": "^30.0.0",
+    "jest-expo": "^53.0.7"
   },
   "private": true
 }

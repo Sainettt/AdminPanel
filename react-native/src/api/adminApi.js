@@ -1,6 +1,6 @@
 import api from './axiosInstance'
 import { hashPassword } from '../../utils/hashPassword'
-import prepareAdminData from '../../utils/prepaireAdminData'
+import prepareAdminData from '../../utils/prepareAdminData'
 
 export const loginAdmin = async (userName, email, password) => {
   const hashedPassword = hashPassword(password)
